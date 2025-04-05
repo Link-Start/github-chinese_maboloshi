@@ -68,7 +68,7 @@ jobs:
           # 更新 main.user.js
           sed -i -E "
             s/(@version\s*([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date/
-            s/(@require.+locals.js\?v([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date
+            s/(@require.+locals.js\?v([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date/
           " main.user.js
 
           # 如果 main.user.js 变化，设置环境变量
