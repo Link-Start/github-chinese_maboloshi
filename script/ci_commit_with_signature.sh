@@ -79,7 +79,7 @@ args=(
 
 # 处理文件变更
 for file in "${changed_files[@]}"; do
-    args+=(-F files[][path]="$file" -F files[][contents]=@"$file")
+    args+=(-F files[][path]="$file" -F files[][contents]=$(base64 -w0 "$file"))
 done
 
 for file in "${deleted_files[@]}"; do
