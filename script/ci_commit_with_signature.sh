@@ -98,12 +98,12 @@ fi
 response=$(gh api graphql "${args[@]}" -F query=@".github/api/createCommitOnBranch.gql")
 
 echo "$response" | jq -r '
-    def format_response:
-        if .data?.createCommitOnBranch?.commit?.url then
-            "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)",
-        elif .errors then
+    if .data?.createCommitOnBranch?.commit?.url then
+        "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)"
+    else
+        if .errors then
             "❌ 错误列表:\n" + ([.errors[].message] | join("\n- "))
         else
             "⚠️ 未知响应格式: \(.)"
-        end;
-    format_response'
+        end
+    end'
