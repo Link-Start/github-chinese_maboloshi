@@ -46,7 +46,7 @@ jobs:
           sed -i -E "
             s/(@version\s+[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
             s/(@require.+435207-github-.+.js\?v[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
-          " main(greasyfork).user.js
+          " "main(greasyfork).user.js"
 
           git diff --quiet --exit-code "main(greasyfork).user.js" || \
           echo "MAIN_USER_JS_CHANGED=true" >> $GITHUB_ENV
