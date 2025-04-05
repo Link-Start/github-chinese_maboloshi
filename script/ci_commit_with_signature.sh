@@ -78,13 +78,21 @@ args=(
 )
 
 # 处理文件变更
-for file in "${changed_files[@]}"; do
-    args+=(-F files[][path]="$file" -F files[][contents]=$(base64 -w0 "$file"))
-done
+if (( ${#changed_files[@]} == 0 )); then
+    args+=(-F files[]="")
+else
+    for file in "${changed_files[@]}"; do
+        args+=(-F files[][path]="$file" -F files[][contents]=$(base64 -w0 "$file"))
+    done
+fi
 
-for file in "${deleted_files[@]}"; do
-    args+=(-F deletions[][path]="$file")
-done
+if (( ${#deleted_files[@]} == 0 )); then
+    args+=(-F deletions[]="")
+else
+    for file in "${deleted_files[@]}"; do
+        args+=(-F deletions[][path]="$file")
+    done
+fi
 
 # 执行请求
 response=$(gh api graphql "${args[@]}" -F query=@".github/api/createCommitOnBranch.gql")
