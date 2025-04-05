@@ -67,8 +67,8 @@ jobs:
 
           # 更新 main.user.js
           sed -i -E "
-            s/(@version\s+[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
-            s/(@require.+locals.js\?v[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
+            s/(@version\s*([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date/
+            s/(@require.+locals.js\?v([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date
           " main.user.js
 
           # 如果 main.user.js 变化，设置环境变量
@@ -138,8 +138,8 @@ jobs:
           # 同步版本号
           locals_js_date="${{ needs.update_main.outputs.locals_js_date }}"
           sed -i -E "
-            s/(@version\s+[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
-            s/(@require.+locals_zh-TW.js\?v[\d.]+)(-\d{4}-\d{2}-\d{2})?/\1-$locals_js_date/
+            s/(@version\s*([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date/
+            s/(@require.+locals_zh-TW.js\?v([0-9]+\.){2}[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?/\1-$locals_js_date/
           " main_zh-TW.user.js
 
       - name: Commit and push main_zh-TW.user.js, locals_zh-TW.js
