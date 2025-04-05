@@ -86,13 +86,13 @@ else
     done
 fi
 
-if (( ${#deleted_files[@]} == 0 )); then
-    args+=(-F deletions[]="")
-else
-    for file in "${deleted_files[@]}"; do
-        args+=(-F deletions[][path]="$file")
-    done
-fi
+# if (( ${#deleted_files[@]} == 0 )); then
+#     args+=(-F deletions[]="")
+# else
+#     for file in "${deleted_files[@]}"; do
+#         args+=(-F deletions[][path]="$file")
+#     done
+# fi
 
 # 执行请求
 response=$(gh api graphql "${args[@]}" -F query=@".github/api/createCommitOnBranch.gql")

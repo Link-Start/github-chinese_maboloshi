@@ -6,7 +6,7 @@ mutation (
     $messageHeadline: String!,
     $messageBody: String,
     $files: [FileAddition!]!,
-    $deletions: [FileDeletion!]!
+    # $deletions: [FileDeletion!]!
 ) {
   createCommitOnBranch(input: {
     branch: {
@@ -18,8 +18,7 @@ mutation (
       body: $messageBody
     },
     fileChanges: {
-      additions: $files,
-      deletions: $deletions
+      additions: $files
     },
     expectedHeadOid: $expectedHeadOid
   }) {
