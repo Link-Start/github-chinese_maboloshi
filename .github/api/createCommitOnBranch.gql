@@ -8,16 +8,16 @@ mutation (
     $files: [FileAddition!]!,
     $deletions: [FileDeletion!]!
 ) {
-  createCommitOnBranch(input {
-    branch {
+  createCommitOnBranch(input: {
+    branch: {
       repositoryNameWithOwner: $githubRepository,
       branchName: $branchName
     },
-    message {
+    message: {
       headline: $messageHeadline,
       body: $messageBody
     },
-    fileChanges {
+    fileChanges: {
       additions: $files,
       deletions: $deletions
     },
