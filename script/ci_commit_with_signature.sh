@@ -69,32 +69,31 @@ signature() {
     echo "Signed-off-by: $login <$id+$login@users.noreply.github.com>"
 }
 
-# 生成安全的文件路径（自动转义特殊字符）
-safe_path() {
-    echo "$1" | jq -Rs .
-}
-
-# 构建请求 additions JSON
+# 流式生成 additions JSON
 generate_additions_json() {
     if (( ${#changed_files[@]} > 0 )); then
+        # 使用临时文件
+        tmp_additions=$(mktemp)
         for file in "${changed_files[@]}"; do
             if [[ -f "$file" ]]; then
                 jq -n \
-                    --arg path "$(safe_path "$file")" \
+                    --arg path "$file" \
                     --arg contents "$(base64 -w0 "$file")" \
-                    '{path: $path, contents: $contents}'
+                    '{path: $path, contents: $contents}' >> "$tmp_additions"
             fi
-        done | jq -s .
+        done
+        jq -s . "$tmp_additions"
+        rm "$tmp_additions"
     else
         echo '[]'
     fi
 }
 
-# 构建请求 deletions JSON
+# 流式生成 deletions JSON
 generate_deletions_json() {
     if (( ${#deleted_files[@]} > 0 )); then
         for file in "${deleted_files[@]}"; do
-            jq -n --arg path "$(safe_path "$file")" '{path: $path}'
+            jq -n --arg path "$file" '{path: $path}'
         done | jq -s .
     else
         echo '[]'
