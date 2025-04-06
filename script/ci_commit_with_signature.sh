@@ -95,8 +95,11 @@ fi
 # fi
 
 # 执行请求
+export GH_DEBUG=1
+echo "gh api graphql ${args[@]} -F query=@'.github/api/createCommitOnBranch.gql'"
 response=$(gh api graphql "${args[@]}" -F query=@".github/api/createCommitOnBranch.gql")
 
+echo "$response"
 echo "$response" | jq -r '
     if .data?.createCommitOnBranch?.commit?.url then
         "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)"
