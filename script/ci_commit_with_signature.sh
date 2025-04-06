@@ -101,8 +101,9 @@ generate_deletions_json() {
     fi
 }
 
-# 构建请求 JSON
-request_json=$(jq -n \
+# 构建包含查询的JSON请求体, 执行请求, 并输出结果
+jq -n \
+    --arg query     "$(cat .github/api/createCommitOnBranch.gql)" \
     --arg repoNwo   "$repoNwo" \
     --arg branch    "$branch" \
     --arg parentSHA "$parentSHA" \
@@ -111,6 +112,8 @@ request_json=$(jq -n \
     --argjson additions "$(generate_additions_json)" \
     --argjson deletions "$(generate_deletions_json)" \
     '{
+      query: $query,
+      variables: {
         githubRepository: $repoNwo,
         branchName: $branch,
         expectedHeadOid: $parentSHA,
@@ -118,13 +121,8 @@ request_json=$(jq -n \
         messageBody: $body,
         additions: $additions,
         deletions: $deletions
-    }')
-
-# 执行请求, 并输出结果
-echo "$request_json" | gh api graphql \
-    --input - \
-    -F query=@".github/api/createCommitOnBranch.gql" \
-| jq -r '
+      }
+    }' | gh api graphql --input - | jq -r '
     if .data?.createCommitOnBranch?.commit?.url then
         "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)"
     else
