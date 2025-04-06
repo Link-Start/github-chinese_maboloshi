@@ -78,8 +78,8 @@ generate_additions_json() {
             if [[ -f "$file" ]]; then
                 jq -n \
                     --arg path "$file" \
-                    --arg contents "$(base64 -w0 "$file")" \
-                    '{path: $path, contents: $contents}' >> "$tmp_additions"
+                    --rawfile contents "$file" \
+                    '{path: $path, contents: ($contents | @base64)}' >> "$tmp_additions"
             fi
         done
         jq -s . "$tmp_additions"
