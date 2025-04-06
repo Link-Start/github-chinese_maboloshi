@@ -51,6 +51,7 @@ done
 export GITHUB_TOKEN="${TOKEN:-$GITHUB_TOKEN}"
 export GITHUB_GRAPHQL_URL="${GRAPHQL_API_URL:-$GITHUB_GRAPHQL_URL}"
 
+# 生成签名（兼容 PAT 和 GitHub Actions）
 signature() {
     if [[ $GITHUB_TOKEN == ghp_* ]]; then
         # https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/
@@ -68,36 +69,62 @@ signature() {
     echo "Signed-off-by: $login <$id+$login@users.noreply.github.com>"
 }
 
-# 构建请求参数
-args=(
-    -F githubRepository="$repoNwo"
-    -F branchName="$branch"
-    -F expectedHeadOid="$parentSHA"
-    -F messageHeadline="$message_headline"
-    -F messageBody="${message_body:+$message_body\n}$(signature)"
-)
+# 生成安全的文件路径（自动转义特殊字符）
+safe_path() {
+    echo "$1" | jq -Rs .
+}
 
-# 处理文件变更
-if (( ${#changed_files[@]} == 0 )); then
-    args+=(-F files[]="")
-else
-    for file in "${changed_files[@]}"; do
-        args+=(-F files[][path]="$file" -F files[][contents]=$(base64 -w0 "$file"))
-    done
-fi
+# 构建请求 additions JSON
+generate_additions_json() {
+    if (( ${#changed_files[@]} > 0 )); then
+        for file in "${changed_files[@]}"; do
+            if [[ -f "$file" ]]; then
+                jq -n \
+                    --arg path "$(safe_path "$file")" \
+                    --arg contents "$(base64 -w0 "$file")" \
+                    '{path: $path, contents: $contents}'
+            fi
+        done | jq -s .
+    else
+        echo '[]'
+    fi
+}
 
-# if (( ${#deleted_files[@]} == 0 )); then
-#     args+=(-F deletions[]="")
-# else
-#     for file in "${deleted_files[@]}"; do
-#         args+=(-F deletions[][path]="$file")
-#     done
-# fi
+# 构建请求 deletions JSON
+generate_deletions_json() {
+    if (( ${#deleted_files[@]} > 0 )); then
+        for file in "${deleted_files[@]}"; do
+            jq -n --arg path "$(safe_path "$file")" '{path: $path}'
+        done | jq -s .
+    else
+        echo '[]'
+    fi
+}
 
-# 执行请求
-response=$(gh api graphql "${args[@]}" -F query=@".github/api/createCommitOnBranch.gql")
+# 构建请求 JSON
+request_json=$(jq -n \
+    --arg repoNwo   "$repoNwo" \
+    --arg branch    "$branch" \
+    --arg parentSHA "$parentSHA" \
+    --arg headline  "$message_headline" \
+    --arg body      "${message_body:+$message_body\n}$(signature)" \
+    --argjson additions "$(generate_additions_json)" \
+    --argjson deletions "$(generate_deletions_json)" \
+    '{
+        githubRepository: $repoNwo,
+        branchName: $branch,
+        expectedHeadOid: $parentSHA,
+        messageHeadline: $headline,
+        messageBody: $body,
+        additions: $additions,
+        deletions: $deletions
+    }')
 
-echo "$response" | jq -r '
+# 执行请求, 并输出结果
+echo "$request_json" | gh api graphql \
+    --input - \
+    -F query=@".github/api/createCommitOnBranch.gql" \
+| jq -r '
     if .data?.createCommitOnBranch?.commit?.url then
         "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)"
     else
