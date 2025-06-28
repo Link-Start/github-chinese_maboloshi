@@ -31,6 +31,7 @@
     const FeatureSet = {
         enable_RegExp: GM_getValue("enable_RegExp", true),
         enable_transDesc: GM_getValue("enable_transDesc", true),
+        enable_missedTerms: GM_getValue("enable_missedTerms", false),
     };
     const CONFIG = {
         LANG: 'zh-CN',
@@ -85,7 +86,6 @@
     // 记录未命中词条
     let missedTerms = GM_getValue("missedTerms", {}); // { "/pathname": { text: "" } }
     let currentPath = window.location.pathname; // 用于分组标识
-    let missedTermsEnabled = GM_getValue("missedTermsEnabled", true); // 默认启用
 
     // 初始化
     init();
@@ -449,7 +449,7 @@
         }
 
         // 记录未命中词条（避免重复）（仅启用时）
-        if (missedTermsEnabled) {
+        if (FeatureSet.enable_missedTerms) {
             missedTerms[currentPath] ||= {};
             if (!(text in missedTerms[currentPath])) {
                 missedTerms[currentPath][text] = "";
@@ -595,12 +595,13 @@
         Object.values(dynamicMenus).forEach(id => GM_unregisterMenuCommand(id));
         dynamicMenus = {};
 
-        const toggleLabel = `${missedTermsEnabled ? "禁用" : "启用"} 未命中词条记录`;
+        const toggleLabel = `${FeatureSet.enable_missedTerms ? "禁用" : "启用"} 未命中词条记录`;
         dynamicMenus.toggle = GM_registerMenuCommand(toggleLabel, () => {
-            missedTermsEnabled = !missedTermsEnabled;
-            GM_setValue("missedTermsEnabled", missedTermsEnabled);
+            const newState = !FeatureSet.enable_missedTerms;
+            FeatureSet.enable_missedTerms = newState;
+            GM_setValue("enable_missedTerms", newState);
 
-            if (!missedTermsEnabled) {
+            if (!newState) {
                 missedTerms = {};
                 GM_setValue("missedTerms", missedTerms);
                 GM_notification("未命中词条记录已禁用，所有记录已清空");
@@ -612,7 +613,7 @@
         });
 
         // 启用 + 有词条 ✅ 显示
-        if (missedTermsEnabled) {
+        if (FeatureSet.enable_missedTerms) {
             const hasData = Object.keys(missedTerms).some(path => Object.keys(missedTerms[path]).length > 0);
 
             if (hasData) {
