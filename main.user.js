@@ -81,6 +81,11 @@
     };
 
     let pageConfig = {};
+    let dynamicMenus = {}; // 用于保存菜单 ID
+    // 记录未命中词条
+    let missedTerms = GM_getValue("missedTerms", {}); // { "/pathname": { text: "" } }
+    let currentPath = window.location.pathname; // 用于分组标识
+    let missedTermsEnabled = GM_getValue("missedTermsEnabled", true); // 默认启用
 
     // 初始化
     init();
@@ -142,6 +147,8 @@
             if (currentURL !== previousURL) {
                 previousURL = currentURL;
                 updatePageConfig("DOM变化");
+
+                currentPath = window.location.pathname; // <== 更新 path
             }
         }
 
@@ -425,19 +432,45 @@
         // 静态翻译
         let translatedText = pageConfig.staticDict[text]; // 默认翻译 公共部分
 
-        if (typeof translatedText === 'string') return translatedText;
+        if (typeof translatedText === 'string') {
+            cleanupMissedTerm(text);
+            return translatedText;
+        }
 
         // 正则翻译
         if (FeatureSet.enable_RegExp) {
             for (const [pattern, replacement] of pageConfig.regexpRules) {
                 translatedText = text.replace(pattern, replacement);
-                if (translatedText !== text) return translatedText;
+                if (translatedText !== text) {
+                    cleanupMissedTerm(text);
+                    return translatedText;
+                }
+            }
+        }
+
+        // 记录未命中词条（避免重复）（仅启用时）
+        if (missedTermsEnabled) {
+            missedTerms[currentPath] ||= {};
+            if (!(text in missedTerms[currentPath])) {
+                missedTerms[currentPath][text] = "";
+                GM_setValue("missedTerms", missedTerms);
+                refreshMenuStates(); // 动态更新菜单启用状态
             }
         }
 
         return false; // 没有翻译条目
     }
 
+    function cleanupMissedTerm(text) {
+        if (missedTerms[currentPath]?.[text]) {
+            delete missedTerms[currentPath][text];
+            if (Object.keys(missedTerms[currentPath]).length === 0) {
+                delete missedTerms[currentPath];
+            }
+            GM_setValue("missedTerms", missedTerms);
+            refreshMenuStates();
+        }
+    }
     /**
      * transDesc 函数：为指定的元素添加一个翻译按钮，并为该按钮添加点击事件。
      * @param {string} selector - CSS选择器，用于选择需要添加翻译按钮的元素。
@@ -558,6 +591,55 @@
         })
     }
 
+    function refreshMenuStates() {
+        Object.values(dynamicMenus).forEach(id => GM_unregisterMenuCommand(id));
+        dynamicMenus = {};
+
+        const toggleLabel = `${missedTermsEnabled ? "禁用" : "启用"} 未命中词条记录`;
+        dynamicMenus.toggle = GM_registerMenuCommand(toggleLabel, () => {
+            missedTermsEnabled = !missedTermsEnabled;
+            GM_setValue("missedTermsEnabled", missedTermsEnabled);
+
+            if (!missedTermsEnabled) {
+                missedTerms = {};
+                GM_setValue("missedTerms", missedTerms);
+                GM_notification("未命中词条记录已禁用，所有记录已清空");
+            } else {
+                GM_notification("未命中词条记录已启用");
+            }
+
+            refreshMenuStates();
+        });
+
+        // 启用 + 有词条 ✅ 显示
+        if (missedTermsEnabled) {
+            const hasData = Object.keys(missedTerms).some(path => Object.keys(missedTerms[path]).length > 0);
+
+            if (hasData) {
+                dynamicMenus.export = GM_registerMenuCommand("📥 导出未命中词条", () => {
+                    const blob = new Blob([JSON.stringify(missedTerms, null, 2)], {
+                        type: "application/json"
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "未命中词条.json";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+
+                dynamicMenus.clear = GM_registerMenuCommand("🗑️ 清空未命中词条", () => {
+                    if (confirm("确定要清空所有未命中词条记录吗？")) {
+                        missedTerms = {};
+                        GM_setValue("missedTerms", missedTerms);
+                        GM_notification("未命中词条记录已清空");
+                        refreshMenuStates();
+                    }
+                });
+            }
+        }
+
+}
     /**
      * registerMenuCommand 函数：注册菜单。
      */
@@ -616,6 +698,7 @@
 
         // 注册所有菜单项
         menuConfigs.forEach(config => createMenuCommand(config));
+        refreshMenuStates(); // 动态构建全部菜单
     };
 
     /**
