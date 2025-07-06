@@ -97,14 +97,15 @@
 
     /****************** 状态管理 ******************/
     const state = {
-        transCache: new Map(), // 翻译结果缓存
         featureSet: { // 功能开关状态
             enable_RegExp: GM_getValue("enable_RegExp", true),
             enable_transDesc: GM_getValue("enable_transDesc", true),
+            enable_transCache: GM_getValue("enable_transCache", true),
         },
         pageConfig: {}, // 当前页面配置
         transEngine: 'iflyrec', // 当前使用的翻译引擎
         mutationObserver: null, // DOM变化观察器
+        transCache: new Map(), // 翻译结果缓存
     };
 
     /****************** 核心功能函数 ******************/
@@ -199,7 +200,7 @@
         const newType = detectPageType();
         if (newType && newType !== state.pageConfig.currentPageType) {
             state.pageConfig = buildPageConfig(newType);
-            clearTransCache(); // 切换页面时清空缓存
+            if (state.featureSet.enable_transCache) clearTransCache(); // 切换页面时清空缓存
         }
         console.log(`【Debug】${trigger}触发, 页面类型为 ${state.pageConfig.currentPageType}`);
     }
@@ -547,7 +548,7 @@
         const cleanedText = trimmedText.replace(/\xa0|[\s]+/g, ' ');
 
         // 检查缓存
-        if (state.transCache.has(cleanedText)) {
+        if (state.featureSet.enable_transCache && state.transCache.has(cleanedText)) {
             const cached = state.transCache.get(cleanedText);
             // 保留原始文本的空白格式
             return text.replace(trimmedText, cached);
@@ -557,7 +558,7 @@
         const result = fetchTransResult(cleanedText);
         if (result && result !== cleanedText) {
             // 缓存翻译结果
-            state.transCache.set(cleanedText, result);
+            if (state.featureSet.enable_transCache) state.transCache.set(cleanedText, result);
             return text.replace(trimmedText, result);
         }
 
@@ -629,7 +630,7 @@
         }
 
         // 检查缓存
-        if (state.transCache.has(descText)) {
+        if (state.featureSet.enable_transCache && state.transCache.has(descText)) {
             showTransResult(element, button, state.transCache.get(descText));
             return;
         }
@@ -638,7 +639,7 @@
         requestRemoteTrans(descText)
             .then(result => {
                 // 缓存并显示结果
-                state.transCache.set(descText, result);
+                if (state.featureSet.enable_transCache) state.transCache.set(descText, result);
                 showTransResult(element, button, result);
             })
             .catch(error => {
@@ -757,6 +758,10 @@
                         document.querySelector('.translate-button')?.remove();
                     }
                 }
+            },
+            {
+                label: "翻译缓存",
+                key: "enable_transCache"
             }
         ];
 
