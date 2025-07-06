@@ -101,11 +101,14 @@
             enable_RegExp: GM_getValue("enable_RegExp", true),
             enable_transDesc: GM_getValue("enable_transDesc", true),
             enable_transCache: GM_getValue("enable_transCache", true),
+            enable_missedTerms: GM_getValue("enable_missedTerms", false),
         },
         pageConfig: {}, // 当前页面配置
         transEngine: 'iflyrec', // 当前使用的翻译引擎
         mutationObserver: null, // DOM变化观察器
         transCache: new Map(), // 翻译结果缓存
+        dynamicMenus: {},
+        missedTerms: GM_getValue("missedTerms", {})
     };
 
     /****************** 核心功能函数 ******************/
@@ -213,6 +216,7 @@
     function buildPageConfig(pageType) {
         return {
             currentPageType: pageType, // 当前页面类型
+            currentPath: window.location.pathname,
             staticDict: { // 合并公共和页面特定的静态词典
                 ...I18N[CONFIG.LANG].public.static,
                 ...(I18N[CONFIG.LANG][pageType]?.static || {})
@@ -572,6 +576,22 @@
         state.transCache.clear();
     }
 
+    function clearMissedTerms() {
+        state.missedTerms.clear();
+        GM_setValue("missedTerms", state.missedTerms);
+    }
+
+    function cleanupMissedTerm(text) {
+        if (state.missedTerms[state.pageConfig.currentPath]?.[text]) {
+            delete state.missedTerms[state.pageConfig.currentPath][text];
+            if (Object.keys(state.missedTerms[state.pageConfig.currentPath]).length === 0) {
+                delete state.missedTerms[state.pageConfig.currentPath];
+            }
+            GM_setValue("missedTerms", state.missedTerms);
+            refreshMenuStates();
+        }
+    }
+
     /**
      * 从词库获取翻译
      * @param {string} text - 要翻译的文本
@@ -580,13 +600,29 @@
     function fetchTransResult(text) {
         // 首先尝试静态词典
         const result = state.pageConfig.staticDict[text];
-        if (result!== undefined && typeof result === 'string') return result;
+        if (result!== undefined && typeof result === 'string') {
+            if (state.featureSet.enable_missedTerms) cleanupMissedTerm(text);
+            return result;
+        }
 
         // 如果正则功能启用，尝试正则规则
         if (state.featureSet.enable_RegExp) {
             for (const [pattern, replacement] of state.pageConfig.regexpRules) {
                 const result = text.replace(pattern, replacement);
-                if (result !== text) return result;
+                if (result !== text) {
+                    if (state.featureSet.enable_missedTerms) cleanupMissedTerm(text);
+                    return result;
+                }
+            }
+        }
+
+        // 记录未命中词条（避免重复）（仅启用时）
+        if (state.featureSet.enable_missedTerms) {
+            state.missedTerms[currentPath] ||= {};
+            if (!(text in state.missedTerms[currentPath])) {
+                state.missedTerms[currentPath][text] = "";
+                GM_setValue("missedTerms", state.missedTerms);
+                refreshMenuStates(); // 动态更新菜单启用状态
             }
         }
 
@@ -767,6 +803,7 @@
 
         // 为每个配置创建菜单命令
         menuConfigs.forEach(config => createMenuCommand(config));
+        refreshMenuStates(); // 动态构建全部菜单
     }
 
     /**
@@ -800,6 +837,64 @@
 
         // 初始注册菜单
         menuId = GM_registerMenuCommand(getMenuLabel(), toggle);
+        refreshMenuStates(); // 动态构建全部菜单
+    }
+
+    function refreshMenuStates() {
+        // 清除旧动态菜单
+        Object.values(state.dynamicMenus).forEach(id => GM_unregisterMenuCommand(id));
+        state.dynamicMenus = {};
+
+        // 未命中词条开关
+        const toggleLabel = `${state.featureSet.enable_missedTerms ? "禁用" : "启用"} 未命中词条记录`;
+        state.dynamicMenus.toggle = GM_registerMenuCommand(toggleLabel, () => {
+            const newFeatureState = !state.featureSet.enable_missedTerms;
+            GM_setValue("enable_missedTerms", newFeatureState);
+            state.featureSet.enable_missedTerms = newFeatureState;
+
+            if (newFeatureState) {
+                GM_notification("未命中词条记录已启用");
+            } else {
+                clearmissedTerms();
+                GM_notification("未命中词条记录已禁用，所有记录已清空");
+            }
+
+            refreshMenuStates();
+        });
+
+        // 启用 + 有词条 ✅ 显示
+        if (state.featureSet.enable_missedTerms) {
+            const hasData = Object.keys(state.missedTerms).some(path =>
+                Object.keys(state.missedTerms[path]).length > 0
+            );
+
+            if (hasData) {
+                state.dynamicMenus.export = GM_registerMenuCommand("📥 导出未命中词条", exportMissedTermsHandler);
+                state.dynamicMenus.clear = GM_registerMenuCommand("🗑️ 清空未命中词条", clearMissedTermsHandler);
+            }
+        }
+    }
+
+    // 导出“未命中词条”处理函数
+    function exportMissedTermsHandler() {
+        const blob = new Blob([JSON.stringify(state.missedTerms, null, 2)], {
+            type: "application/json"
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "未命中词条.json";
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // 清空“未命中词条”处理函数
+    function clearMissedTermsHandler() {
+        if (confirm("确定要清空所有未命中词条记录吗？")) {
+            clearmissedTerms();
+            GM_notification("未命中词条记录已清空");
+            refreshMenuStates();
+        }
     }
 
     /****************** 初始化执行 ******************/
