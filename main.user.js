@@ -687,10 +687,11 @@
 
             // 使用GM_xmlhttpRequest发起跨域请求
             GM_xmlhttpRequest({
-                method,
+                method: method,
                 url: url_api,
-                headers,
+                headers: headers,
                 data: method === 'POST' ? JSON.stringify(requestData) : null,
+                params: method === 'GET' ? requestData : null, // For GET requests
                 timeout: 10000, // 10秒超时
                 onload: (res) => {
                     try {
