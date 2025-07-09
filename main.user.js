@@ -618,9 +618,9 @@
 
         // 记录未命中词条（避免重复）（仅启用时）
         if (state.featureSet.enable_missedTerms) {
-            state.missedTerms[currentPath] ||= {};
-            if (!(text in state.missedTerms[currentPath])) {
-                state.missedTerms[currentPath][text] = "";
+            state.missedTerms[state.pageConfig.currentPath] ||= {};
+            if (!(text in state.missedTerms[state.pageConfig.currentPath])) {
+                state.missedTerms[state.pageConfig.currentPath][text] = "";
                 GM_setValue("missedTerms", state.missedTerms);
                 refreshMenuStates(); // 动态更新菜单启用状态
             }
