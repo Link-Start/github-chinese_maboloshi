@@ -45,7 +45,7 @@ I18N.conf = {
      * 导入仓库 /new/import
      * ...
      */
-    rePagePath: /^\/($|home|dashboard|feed|copilot|spark|signup|account_verifications|login\/oauth|login|logout|sessions?|password_reset|orgs|explore|topics|notifications\/subscriptions|notifications|watching|stars|issues|pulls|search|trending|showcases|new\/(import|project)|new|import|settings\/(profile|admin|appearance|accessibility|notifications|billing|emails|security_analysis|security-log|security|auth|sessions|keys|ssh|gpg|organizations|enterprises|blocked_users|interaction_limits|code_review_limits|repositories|codespaces|models|codespaces\/allow_permissions|deleted_repositories|packages|copilot|pages|replies|installations|apps\/authorizations|reminders|sponsors-log|apps|(?:personal-access-|)tokens|developers|applications\/new|applications|connections\/applications|education\/benefits)|settings|installations\/new|marketplace|apps|account\/(organizations\/new|choose|upgrade|billing\/history)|projects|redeem|discussions|collections|sponsors|sponsoring|github-copilot\/(signup|free_signup|code-review-waitlist|pro)|codespaces|developer\/register|features|security|sitemap|education|mcp)|^\/users\/[^\/]+\/(projects|packages|succession\/invitation)/,
+    rePagePath: /^\/($|home|dashboard|feed|copilot|spark|signup|account_verifications|login\/oauth|login|logout|sessions?|password_reset|orgs|explore|topics|notifications\/subscriptions|notifications|watching|stars|issues|pulls|repos|search|trending|showcases|new\/(import|project)|new|import|settings\/(profile|admin|appearance|accessibility|notifications|billing|emails|security_analysis|security-log|security|auth|sessions|keys|ssh|gpg|organizations|enterprises|blocked_users|interaction_limits|code_review_limits|repositories|codespaces|models|codespaces\/allow_permissions|deleted_repositories|packages|copilot|pages|replies|installations|apps\/authorizations|reminders|sponsors-log|apps|(?:personal-access-|)tokens|developers|applications\/new|applications|connections\/applications|education\/benefits)|settings|installations\/new|marketplace|apps|account\/(organizations\/new|choose|upgrade|billing\/history)|projects|redeem|discussions|collections|sponsors|sponsoring|github-copilot\/(signup|free_signup|code-review-waitlist|pro)|codespaces|developer\/register|features|security|sitemap|education|mcp)|^\/users\/[^\/]+\/(projects|packages|succession\/invitation)/,
 
     // 仓库路径
     rePagePathRepo: /^\/[^\/]+\/[^\/]+\/(issues|pulls|pull|tree|watchers|stargazers|new|edit|delete|upload|find|models|wiki|branches|discussions|activity|rules|releases|packages|tags|labels|milestones?|compare|commit|blob|blame|actions(\/metrics\/(usage|performance))?|runs|deployments|security|pulse|community|forks|fork|import|graphs\/(contributors|community|traffic|commit-activity|code-frequency)|network$|network\/(dependencies|dependents|updates|members)|settings\/(access|code_review_limits|interaction_limits|branches|branch_protection_rules|tag_protection|rules|actions|models\/access-policy|hooks|copilot\/(code_review|coding_agent)|environments|codespaces|pages|security_analysis|dependabot_rules|keys|secrets|variables|installations|notifications|key_links)|settings|transfer|projects\/new|projects|pkgs|contribute|subscription|invitations|codespaces|attestations|custom-properties|reported_content)/,
@@ -72,9 +72,20 @@ I18N.conf = {
         'repository/blob': [
             "#highlighted-line-menu-positioner", // 代码视图 存在
             "#repos-sticky-header", // 代码视图 置顶标题
+            'nav[data-testid="breadcrumbs"]', // 面包屑导航
+            'div[data-testid="breadcrumbs-filename"]', // 面包屑导航 文件名部分
         ],
         'repository/blame': ["#highlighted-line-menu-positioner"], // 代码视图
-        'repository': [".AppHeader-context", "table"], //  "article.markdown-body",
+        'repository': [
+            ".AppHeader-context",
+            "table",
+            "article.markdown-body",
+        ],
+        'repository/tree': [
+            'nav[data-testid="breadcrumbs"]', // 面包屑导航
+            'div[data-testid="breadcrumbs-filename"]', // 面包屑导航 文件名部分
+            'tr.react-directory-row', // 文件列表中文件夹和文件条目
+        ],
         'repository/releases': [".Box-footer"], // 附件清单
         'repository/issues': [
             'div[aria-live="polite"]>div.markdown-body', // 新建议题 - 正文编辑器预览
@@ -118,7 +129,7 @@ I18N.conf = {
             'strong[itemprop="name"]', // 仓库名称
             // 'ul.list-style-none', // 右侧 部署列表 无效
             'div[data-testid="latest-commit"]', // 最新的提交
-            '.react-directory-row', // 文件列表中文件夹和文件条目
+            'tr.react-directory-row', // 文件列表中文件夹和文件条目
             'p.f4.my-3', // 仓库简介正文
             '#translate-me',
             '.my-3.d-flex.flex-items-center', // 仓库简介中的链接
@@ -129,10 +140,10 @@ I18N.conf = {
             '.AppHeader-context-full', // 顶部 <username>/<repo_name>
             'div.react-tree-show-tree-items', // 左侧文件树项目
             'span.PRIVATE_TreeView-item-content-text', // 左侧文件树项目 - 子文件夹
-            '.react-directory-row', // 文件列表中文件夹和文件条目
-            '#repos-header-breadcrumb',
-            '#file-name-id', // 文件路径中文件部分
             'article.markdown-body', // Markdown 正文
+            'nav[data-testid="breadcrumbs"]', // 面包屑导航
+            'div[data-testid="breadcrumbs-filename"]', // 面包屑导航 文件名部分
+            'tr.react-directory-row', // 文件列表中文件夹和文件条目
         ],
         'repository/blob': [
             '.AppHeader-context-full', // 顶部 <username>/<repo_name>
@@ -142,10 +153,8 @@ I18N.conf = {
             '#highlighted-line-menu-positioner', // 代码视图
             '#filter-results', // 右侧 符号筛选
             '.Text__StyledText-sc-17v1xeu-0', // 右侧 符号筛选
-            '#repos-header-breadcrumb', // 文件路径中文件夹路径
-            '#repos-header-breadcrumb--wide', // 文件路径中文件夹路径 左侧文件树展开情况
-            '#sticky-breadcrumb',
-            '#file-name-id', // 文件路径中文件部分
+            'nav[data-testid="breadcrumbs"]', // 面包屑导航
+            'div[data-testid="breadcrumbs-filename"]', // 面包屑导航 文件名部分
         ],
         'repository/issues': [
             'div[aria-live="polite"]>div.markdown-body', // 新建议题 - 正文编辑器预览
@@ -420,6 +429,7 @@ I18N["zh-CN"]["title"] = { // 标题翻译
         "Get Started With GitHub Discussions": "开始使用 GitHub 讨论",
         "SSH and GPG keys": "SSH 和 GPG 密钥",
         "MCP Registry": "MCP 互联",
+        "User repositories": "用户仓库",
     },
     "regexp": [ // 正则翻译
         [/Authorized OAuth Apps/, "授权的 OAuth 应用"],
@@ -794,6 +804,11 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
             "Settings": "设置",
             "Copilot settings": "Copilot 设置",
             "Feature preview": "功能预览",
+            "Feature Preview": "功能预览",
+                "Get early access to new features and give feedback": "测试新功能并提交反馈",
+                "Help us improve this and make your experience even better.": "帮我们改进此功能，提升您的体验。",
+                "On": "开",
+                "Off": "关",
                 // 对话框
                 "Feature preview dialog": "功能预览对话框",
                 "Enable": "启用",
@@ -2291,6 +2306,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
             "In progress": "进行中",
 
             "Unable to load agent tasks, try again later.": "无法加载智能体任务，请稍后重试。",
+            "Unable to load pull requests, try again later.": "无法加载拉取请求，请稍后重试。",
 
             "Updated": "更新于",
             "Ready for review": "准备审查",
@@ -21207,6 +21223,42 @@ I18N["zh-CN"]["issues"] = { // 议题页面
     },
 };
 I18N["zh-CN"].pulls = I18N["zh-CN"].issues;
+
+I18N["zh-CN"]["repos"] = {
+    "static": {
+        "My contributions": "我的贡献",
+        "My repositories": "我的仓库",
+        "My forks": "我的复刻",
+        "Adminable by me": "我可管理",
+
+        "Views": "视图",
+            "Create view": "新建",
+                "Icon": "图标",
+                "Description": "描述",
+                "Query": "查询",
+
+                "Save view": "保存",
+
+        // 搜索栏
+            "Clear filter": "清除筛选",
+            "Comfortable display density": "舒适视图",
+            "Compact display density": "紧凑视图",
+
+        // 筛选框
+            "Relevance": "相关性",
+            "Last pushed": "最后推送",
+            "Name": "名称",
+
+            "Ascending": "递增",
+            "Descending": "递减",
+
+        "Updated": "更新于",
+    },
+    "regexp": [
+        [/(\d+) repositor(y|ies)/, "$1 个仓库"],
+        [/([^ ]+)’s past year of commit activity/, "近几年 $1 的提交活动"],
+    ],
+};
 
 I18N["zh-CN"]["search"] = { // 搜索页面
     "static": { // 静态翻译
