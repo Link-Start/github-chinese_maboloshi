@@ -2671,6 +2671,7 @@ I18N["zh-TW"]["page-profile"] = { // 個人首頁
         [/(\d+) GitHub Archive Program/, "$1 GitHub 存檔計劃"], // 成就浮動款
         [/(\d+) remaining/, "$1 剩餘"], // 置頂專案 剩餘
         [/([^ ]+) doesn('|’)t have any public repositories yet./, "$1 尚無任何公共倉庫。"],
+        [/([\d,]+) contributions? in the last year in ([^ ]+)/, "在過去的一年中向 $2 貢獻 $1 次"],
         [/([\d,]+) contributions? in the last year/, "在過去的一年中貢獻 $1 次"],
         [/([\d,]+) contributions? in (\d+) in ([^ ]+)/, "在 $2 年中向 $3, 貢獻 $1 次"],
         [/([\d,]+) contributions? in (\d+)/, "在 $2 年中貢獻 $1 次"],
@@ -13489,6 +13490,9 @@ I18N["zh-TW"]["repository/actions"] = { // 倉庫 - 操作頁面
 
             // 左側欄
             "Summary": "摘要",
+            "All jobs": "所有作業",
+                "Filter by job status": "由作業狀態篩選",
+                    "Filter by status": "狀態篩選",
             "Jobs": "作業",
             "Run details": "運行詳情",
             "Usage": "運用",
@@ -15763,6 +15767,7 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
         [/on ([^ ]+) in/, "關於 $1 在"],
         [/Or, manually upgrade ([^ ]+) to version/, "或者，手動將 $1 升級到版本"],
         [/on (.+)/, "$1"],
+        [/(\d+)\/(\d+) files? scanned/, "$1/$2 文件已掃描"],
         //[/Copy ([^/]\/(?:[^/]+\/)*[^/]+$) to clipboard/, "複製 $1 到剪切板"],
         [/Prototype Pollution in ([^ ]+)/, "$1 上游汙染"],
         [/First detected (.+)/, (match, p1) => { // 受影響的分支 // BUG: 翻譯不生效
