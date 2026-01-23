@@ -332,6 +332,9 @@ GitHub 的 ajax 载入方式逐步从 [defunkt/jquery-pjax](https://github.com/d
 <a href="https://github.com/pecasha" title="Pecasha">
   <img src="https://avatars.githubusercontent.com/u/9607128?v=4" width="42;" alt="Pecasha"/>
 </a>
+<a href="https://github.com/Kisechan" title="Kise Platinyl">
+  <img src="https://avatars.githubusercontent.com/u/162338950?v=4" width="42;" alt="Kise Platinyl"/>
+</a>
 <a href="https://github.com/yrljroli" title="苓𥤚">
   <img src="https://avatars.githubusercontent.com/u/169890386?v=4" width="42;" alt="苓𥤚"/>
 </a>
@@ -358,9 +361,6 @@ GitHub 的 ajax 载入方式逐步从 [defunkt/jquery-pjax](https://github.com/d
 </a>
 <a href="https://github.com/NyA1K0" title="NyA!K0">
   <img src="https://avatars.githubusercontent.com/u/177237971?v=4" width="42;" alt="NyA!K0"/>
-</a>
-<a href="https://github.com/Kisechan" title="Kise Platinyl">
-  <img src="https://avatars.githubusercontent.com/u/162338950?v=4" width="42;" alt="Kise Platinyl"/>
 </a>
 <a href="https://github.com/KS-OTO" title="KS-OTO">
   <img src="https://avatars.githubusercontent.com/u/6616413?v=4" width="42;" alt="KS-OTO"/>
