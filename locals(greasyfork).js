@@ -750,7 +750,7 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
             "You have unread notifications": "您有未读通知",
 
         // 右上角新建按钮下拉菜单
-            "Create new...": "新建…",
+            "Create New...": "新建…",
             "Create new…": "新建…",
                 "New repository": "新建仓库",
                 "Import repository": "导入仓库",
@@ -803,6 +803,7 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
                 "Recent tasks": "近期任务",
 
         // 右上角个人图标下拉菜单
+            "Open user navigation menu": "打开用户导航菜单",
             "Account switcher": "账户切换",
                 "Add account": "添加账户",
                 "Switch account": "切换账户",
@@ -1454,6 +1455,8 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
                     "characters": "字符",
                 "Delete conversation": "删除对话",
                 "View all conversations": "查看全部对话",
+                    "There are no conversations at the moment.":"目前没有对话。",
+                    "Start a new conversation":"开始新对话",
                     "Active conversations": "最近对话",
                     "All conversations": "所有对话",
                     // 删除
@@ -3946,9 +3949,11 @@ I18N["zh-CN"]["settings/appearance"] = { // 设置 - 外观
             "GitHub theme will match your system active settings": "GitHub 主题将匹配您的系统设置",
             "Light default": "浅色 - 默认",
             "Light protanopia and deuteranopia": "浅色 - 色盲",
+            "Light colorblind": "浅色 - 色盲",
             "Light tritanopia": "浅色 - 蓝色盲",
             "Dark default": "深色 - 默认",
             "Dark protanopia and deuteranopia": "深色 - 色盲",
+            "Dark colorblind": "深色 - 色盲",
             "Dark tritanopia": "深色 - 蓝色盲",
             "Soft dark": "深色 - 柔和",
             "Light theme": "浅色主题",
@@ -7831,6 +7836,7 @@ I18N["zh-CN"]["settings/personal-access-tokens"] = { // 设置 - 开发者设置
             "User permissions": "用户权限",
             "Repository permissions": "仓库权限",
             "Organization permissions": "组织权限",
+           
 
             // 具体权限暂时翻译 太麻烦 主要他将读/写具体的权限合并描述
 
@@ -8032,6 +8038,13 @@ I18N["zh-CN"]["repository-public"] = { // 仓库 - 公共部分
             "DMCA takedown policy": "DMCA 删除政策",
             "how to file a counter notice": "如何提交反通知",
             ". If you have any questions about the process or the risks in filing a counter notice, we suggest that you consult with a lawyer.": "。如果您对提交反通知的流程或风险有任何疑问，我们建议您咨询律师。",
+
+            // 仓库包含危险内容
+            "This repository contains malicious content that may cause technical harms. We have decided to preserve this content for security research purposes. Please exercise CAUTION when clicking links, downloading releases, or otherwise interacting with this repository.": "此仓库包含恶意内容，可能导致技术性损害。出于安全研究目的，我们决定保留此内容。在点击链接、下载发行版或与此仓库进行任何交互时，请务必谨慎。",
+            "Discover other projects on GitHub": "在 GitHub 上探索其他仓库",
+            "View repository": "查看仓库",
+            "Additional resources": "更多资源",
+            "GitHub Community Guidelines": "GitHub 社区准则",
 
              // 用户 浮动信息卡
                 "- same time": "- 时间相同",
@@ -13290,6 +13303,13 @@ I18N["zh-CN"]["repository/actions"] = { // 仓库 - 操作页面
             // 筛选条
                 "Filter workflow runs": "筛选工作流程",
                     "Narrow your search": "缩小搜索范围",
+
+            //访问上限
+            //示例：https://github.com/wilsonzlin/fastrender/actions/workflows/ci.yml?page=1174
+                "You have hit the limit of pages.": "您已到达页面访问上限。",
+                "You could filter by":"您可以按以下筛选",
+                "to continue reviewing older workflow runs.":"继续查看旧的工作流程运行。", 
+                
 
             // 反馈提醒
                 "Help us improve GitHub Actions": "帮助我们改进 GitHub Actions",
@@ -19334,7 +19354,7 @@ I18N["zh-CN"]["repository/settings/keys"] = { // 仓库设置 - 部署密钥 /<u
 
         // 部署密钥 页面 /<user-name>/<repo-name>/settings/keys====================================
             "We recommend using": "我们建议使用",
-            "instead for fine grained control over repositories and": "来对存储库进行细粒度控制并",
+            "instead for fine grained control over repositories and": "来对仓库进行细粒度控制并",
             "enhanced security": "增强安全性",
             "use an SSH key to grant readonly or write access to a single repository. They are not protected by a passphrase and can be a security risk if your server is compromised. If you have a complex project or want more fine-grain control over permissions, consider using": "使用 SSH 密钥授予对单个仓库的只读或写入访问权限。它们不受密码保护，如果您的服务器受到威胁，则可能存在安全风险。如果您的项目很复杂或想要更精细地控制权限，请考虑使用",
             "instead.": "。",
@@ -20589,6 +20609,7 @@ I18N["zh-CN"]["notifications"] = { // 通知页面
             "Marking your notifications as \"done\" helps to create a more focused inbox. Don't worry - if there is new activity, you'll still be notified.": "将您的通知标记为 “已完成” 有助于创建一个更加集中的收件箱。不用担心 - 如果有新的活动，您仍然会收到通知。",
             "Mark all read notifications as done": "将所有已读通知标记为已完成",
             "This process could take a few moments depending on the quantity.": "这个过程可能会根据数量的多少而耗费一些时间。",
+            "Bulk action processing complete.": "批量操作处理完成。",
 
         "Manage notifications": "管理通知",
         "Notification settings": "通知设置",
