@@ -68,7 +68,7 @@ I18N.conf = {
             "tbody", // 程式碼差異
             ".js-preview-body", // 新建拉取請求 - 正文編輯器預覽
         ],
-        'repository/commit': ["td.blob-code"], // 程式碼差異 分屏/同屏
+        'repository/commit': ["td.blob-code", "div.diff-text-inner"], // 程式碼差異 分屏/同屏
         'repository/blob': [
             "#highlighted-line-menu-positioner", // 程式碼視圖 存在
             "#repos-sticky-header", // 程式碼視圖 置頂標題
@@ -705,7 +705,9 @@ I18N["zh-TW"]["public"] = { // 公共區域翻譯
                 "Pricing": "價格",
 
         // 左上角下拉欄 (已登錄)
+            "Open menu": "打開菜單",
             "Close menu": "關閉菜單",
+            "Homepage": "主頁",
             "Home": "主頁",
             "Feed": "動態",
             "Issues": "議題",
@@ -845,6 +847,9 @@ I18N["zh-TW"]["public"] = { // 公共區域翻譯
                     "Note: commenting on rich diff views of notebooks is not yet supported": "注意：尚不支持對 Jupyter Notebook 的豐富差異視圖進行評論",
                 "New Files Changed Experience": "新版文件更改體驗",
                     "Feature enabling the new Files Changed Page": "啟用新版更改的文件頁",
+                "New Files Changed Perf Experiment": "新版更改的文件性能優化",
+                    "Performance improvement for reviewing large pull requests in the New Files Changed experience. When enabled, the new experience uses virtualization to reduces the number of DOM elements and event listeners the browser has to manage. This can significantly improve memory utilization and the responsiveness of the page.": "這項性能優化針對“新版文件更改體驗”中審查大型拉取請求的場景。啟用後，新體驗將採用虛擬化技術，減少瀏覽器需要管理的 DOM 元素數量和事件監聽器數量，從而顯著改善內存佔用並提升頁面響應速度。",
+                    "Note: this features only works when the New Files Changed Experience feature preview is enabled.": "注意：此功能僅在啟用“新版文件更改體驗”功能預覽時才生效。",
                 "Slash Commands": "斜槓命令",
                     "Slash commands make it easier to type more complex Markdown, such as tables, tasklists, and code blocks.": "斜線命令可以讓您更輕鬆地輸入更複雜的 Markdown，如表格、任務列表和程式碼塊。",
                     "Simply type": "只需在議題、拉取請求和討論中鍵入",
@@ -9886,6 +9891,7 @@ I18N["zh-TW"]["repository/issues"] = { // 倉庫 - 議題頁面
                         "Signed-in user": "已登錄用戶",
                     // Copilot
                         "Your AI pair programmer": "您的 AI 編程助理",
+                        "Assign to Copilot": "受理給 Copilot",
                     "Exclude assignee": "排除受理人",
                 "Author": "作者",
                     "Has author": "包含作者",
@@ -10030,6 +10036,7 @@ I18N["zh-TW"]["repository/issues"] = { // 倉庫 - 議題頁面
                 "Empty value for": "空值",
                 "Invalid value": "無效值",
                 "for": "對於",
+                "Unbalanced quotation marks": "引號不匹配",
 
             "Order": "順序",
 
