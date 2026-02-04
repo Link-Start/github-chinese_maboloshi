@@ -9924,6 +9924,13 @@ I18N["zh-CN"]["repository/issues"] = { // 仓库 - 议题页面
                     // Copilot
                         "Your AI pair programmer": "您的 AI 编程助理",
                         "Assign to Copilot": "受理给 Copilot",
+                        // 窗口
+                            "Assign Copilot to issue": "分配议题给 Copilot",
+                            "Feedback": "反馈",
+                                "Copilot will open a pull request using the issue's description, comments, and the additional prompt if you provide one. Choose a custom agent to tailor Copilot for specific tasks.": "Copilot 将根据议题的描述、评论以及您提供的额外提示词（若有）来开启拉取请求。您可以选择自定义智能体，以便针对特定任务定制 Copilot。",
+                                "Optional prompt": "提示词（可选）",
+                                    "Provide additional instructions for Copilot": "提供可选提示给 Copilot",
+                                "Auto": "自动",
                     "Exclude assignee": "排除受理人",
                 "Author": "作者",
                     "Has author": "包含作者",
@@ -10790,6 +10797,7 @@ I18N["zh-CN"]["repository/pull"] = { // 仓库 - 某个拉取请求页面
             "started work": "开工",
             "on behalf of": "代表",
                 "View session": "查看",
+            "finished work": "完工",
             "finished work on behalf of": "完工，代表",
             "stopped work on behalf of": "停工，代表",
                 "due to an error": "因为错误",
@@ -12228,6 +12236,7 @@ I18N["zh-CN"]["repository/commit"] = { // 仓库 - 提交页面
             // 用户筛选
                 "All users": "所有用户",
                 "Find a user...": "寻找一个用户……",
+                "Filter on author": "筛选作者：",
                 "View commits for all users": "查看所有用户的提交",
             // 时间筛选
                 "All time": "所有时间",
@@ -15618,6 +15627,8 @@ I18N["zh-CN"]["repository/security"] = { // 仓库 - 安全页面
 
         // 具体某条 代码扫描 警报/<user-name>/<repo-name>/security/security/code-scanning/<id>
             "Code scanning alerts": "代码扫描警报",
+            // 状态词
+                "Dismissed": "关闭",
             "← Code scanning alerts": "← 代码扫描警报",
             "Speed up the remediatiof this alert with": "加快修复此警报的速度，使用", // BUG: 翻译不生效
                 "Copilot Autofix for CodeQL": "CodeQL 的 Copilot 自动修复",
