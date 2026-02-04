@@ -866,6 +866,8 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
                     "Please": "请",
                     "give feedback": "提交反馈",
                     "so we can improve it!": "以便我们加以改进！",
+                "Semantic issue search": "语义议题搜索",
+                    "Find issues using the new semantic search. Enter natural language queries on a repo’s Issues page to discover relevant, semantically-indexed results. You can also combine filters and keywords for traditional searches.": "使用新的语义议题搜索功能查找议题。在仓库的议题页面输入自然语言查询，即可发现语义索引的相关结果。您还可以结合过滤器和关键词进行传统搜索。",
                 // 出错提示
                     "Sorry, something went wrong and we were not able to fetch the feature previews": "对不起，出了点问题，我们无法获取功能预览",
                 "Changes saved! Please": "更改已保存！请",
@@ -1998,7 +2000,9 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
             "Start a session": "启动一个会话",
 
         // 新版首页功能区
+        "Ask": "询问",
         "Task": "任务",
+        "to access more models and higher limits.": "来获得更多模型和更高限制。",
         "Create issue": "创建议题",
             "First, create a new draft issue. Then ask for additional information to fill out the issue.":"首先，创建一个新的草稿议题。然后，要求提供更多信息来完善议题。",
             "First, create an issue with sub issues. Then ask for additional information to fill out these issues.":"首先，创建一个包含子议题的议题。然后，要求提供更多信息来完善这些子议题。",
@@ -2221,6 +2225,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         "forked": "复刻了",
         "from": "来自",
         "for": "",
+        "pushed": "推送",
         "pushed to": "推送到",
         "released": "发布了",
         "published": "发布了",
@@ -2231,6 +2236,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         "a repository": "1 个仓库",
         "has a new repository": "创建了仓库",
         "created a repository": "创建了仓库",
+        "a branch in": "一个分支在",
         "created a branch in": "创建了一个分支在",
         "in": "分支在",
         "Forked to": "复刻为",
@@ -2244,6 +2250,13 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         "launched their sponsorship page 💖": "推出了他们的赞助页面 💖",
         //[/and (\d+) more/, "和另外 $1 个"],
         "All reactions": "所有看法",
+        "commented on an issue in": "于一个议题发表了评论在",
+        "commented on a pull request in": "于一个拉取请求发表了评论在",
+        "opened a pull request": "打开了一个拉取请求在",
+        "closed a pull request": "关闭了一个拉取请求在",
+        "opened": "打开",
+        "deleted": "删除",
+        "commented on": "发表了评论于",
 
         "published a release": "发布发行版",
         "forked a repository": "复刻仓库",
@@ -2258,6 +2271,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         "your repository": "您的仓库",
 
         "Read more": "阅读更多内容",
+        "Load more...": "加载更多……",
 
         "Subscribe to your news feed": "订阅您的新闻提要",
         "Subscribe to the": "订阅", // 组织
@@ -2303,7 +2317,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         "The world’s fair of software is here.": "世界软件博览会就在这里。",
         "The GitHub Universe call for sessions is now open! Apply to share your expertise by submitting a session proposal today. Plus, get 35% off your tickets to GitHub Universe only for a limited time.": "GitHub Universe 的会议征集现已开启！立即提交您的会议提案，分享您的专业知识。此外，现在限时可享 35% 的 GitHub Universe 会议门票折扣。",
 
-        // 教育看板（申请教育包才有
+        // 教育看板（申请教育包才有）
         "Learn. Collaborate. Grow.": "学习，协作，成长。",
         "GitHub Education gives you the tools and community support to take on tech challenges and turn them into opportunities. Your future in tech starts here!": "GitHub 教育提供工具和社区支持，帮助您应对技术挑战并将其转化为机遇。您科技领域的未来从这里开始！",
         "Go to GitHub Education": "前往 GitHub 教育",
@@ -2316,6 +2330,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
         // [/(\d+) repositor(y|ies)/, "$1 个仓库"],
         // [/(\d+) members?/, "$1 个成员"],
 
+        "Go to organization dashboard": "前往组织仪表板", // 组织
         "Switch dashboard context": "切换默认身份", // 组织
         "Manage organizations": "管理组织", // 组织
         "Create organization": "创建组织", // 组织
@@ -2348,6 +2363,7 @@ I18N["zh-CN"]["page-dashboard"] = { // 已登录的首页 - 仪表板（含组�
             "Assigned to Copilot": "分配给 Copilot",
     },
     "regexp": [ // 正则翻译
+        [/(\d+) pull requests/, "$1 个拉取请求"],
         [/added (\d+) repositor(y|ies) to/, "添加 $1 个仓库到"],
         [/, and (\d+) more/, "，以及其他 $1 个组织"], // 用户 浮动信息卡
         [/(\d+) repositor(y|ies)/, "$1 个仓库"], // 组织  浮动信息卡
@@ -16953,6 +16969,8 @@ I18N["zh-CN"]["repository/settings"] = { // 仓库设置 - 通常 /<user-name>/<
         ...I18N["zh-CN"]["repository-settings-menu"]["static"],
 
         // 通常 - 设置页面 /<user-name>/<repo-name>/settings ====================================
+            "You don't have access to repository options": "你没有对仓库设置的访问权限",
+                "Check the sidebar for available repository settings.": "在侧边栏中查看可用的仓库设置。",
             "Repository name": "仓库名称",
             "Rename": "重命名",
                 // [/is available./, "名称可用。"],
@@ -20668,6 +20686,7 @@ I18N["zh-CN"]["notifications"] = { // 通知页面
             "Marking your notifications as \"done\" helps to create a more focused inbox. Don't worry - if there is new activity, you'll still be notified.": "将您的通知标记为 “已完成” 有助于创建一个更加集中的收件箱。不用担心 - 如果有新的活动，您仍然会收到通知。",
             "Mark all read notifications as done": "将所有已读通知标记为已完成",
             "This process could take a few moments depending on the quantity.": "这个过程可能会根据数量的多少而耗费一些时间。",
+            "Bulk actions currently being processed.": "批量操作正在处理中。",
             "Bulk action processing complete.": "批量操作处理完成。",
 
         "Manage notifications": "管理通知",
