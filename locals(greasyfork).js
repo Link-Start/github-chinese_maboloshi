@@ -68,7 +68,7 @@ I18N.conf = {
             "tbody", // 代码差异
             ".js-preview-body", // 新建拉取请求 - 正文编辑器预览
         ],
-        'repository/commit': ["td.blob-code"], // 代码差异 分屏/同屏
+        'repository/commit': ["td.blob-code", "div.diff-text-inner"], // 代码差异 分屏/同屏
         'repository/blob': [
             "#highlighted-line-menu-positioner", // 代码视图 存在
             "#repos-sticky-header", // 代码视图 置顶标题
@@ -705,7 +705,9 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
                 "Pricing": "价格",
 
         // 左上角下拉栏 (已登录)
+            "Open menu": "打开菜单",
             "Close menu": "关闭菜单",
+            "Homepage": "主页",
             "Home": "主页",
             "Feed": "动态",
             "Issues": "议题",
@@ -845,6 +847,9 @@ I18N["zh-CN"]["public"] = { // 公共区域翻译
                     "Note: commenting on rich diff views of notebooks is not yet supported": "注意：尚不支持对 Jupyter Notebook 的丰富差异视图进行评论",
                 "New Files Changed Experience": "新版文件更改体验",
                     "Feature enabling the new Files Changed Page": "启用新版更改的文件页",
+                "New Files Changed Perf Experiment": "新版更改的文件性能优化",
+                    "Performance improvement for reviewing large pull requests in the New Files Changed experience. When enabled, the new experience uses virtualization to reduces the number of DOM elements and event listeners the browser has to manage. This can significantly improve memory utilization and the responsiveness of the page.": "这项性能优化针对“新版文件更改体验”中审查大型拉取请求的场景。启用后，新体验将采用虚拟化技术，减少浏览器需要管理的 DOM 元素数量和事件监听器数量，从而显著改善内存占用并提升页面响应速度。",
+                    "Note: this features only works when the New Files Changed Experience feature preview is enabled.": "注意：此功能仅在启用“新版文件更改体验”功能预览时才生效。",
                 "Slash Commands": "斜杠命令",
                     "Slash commands make it easier to type more complex Markdown, such as tables, tasklists, and code blocks.": "斜线命令可以让您更轻松地输入更复杂的 Markdown，如表格、任务列表和代码块。",
                     "Simply type": "只需在议题、拉取请求和讨论中键入",
@@ -9886,6 +9891,7 @@ I18N["zh-CN"]["repository/issues"] = { // 仓库 - 议题页面
                         "Signed-in user": "已登录用户",
                     // Copilot
                         "Your AI pair programmer": "您的 AI 编程助理",
+                        "Assign to Copilot": "受理给 Copilot",
                     "Exclude assignee": "排除受理人",
                 "Author": "作者",
                     "Has author": "包含作者",
@@ -10030,6 +10036,7 @@ I18N["zh-CN"]["repository/issues"] = { // 仓库 - 议题页面
                 "Empty value for": "空值",
                 "Invalid value": "无效值",
                 "for": "对于",
+                "Unbalanced quotation marks": "引号不匹配",
 
             "Order": "顺序",
 
