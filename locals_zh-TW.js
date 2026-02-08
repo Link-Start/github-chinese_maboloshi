@@ -95,6 +95,9 @@ I18N.conf = {
             'table.highlight', // 工作流程文件 源碼視圖
             '.js-full-logs-container', // 工作流運行日誌
         ],
+        'repository/security': [
+            'td.blob-code',
+        ],
         'copilot':[
             '.cm-line',
         ],
@@ -190,6 +193,9 @@ I18N.conf = {
         'repository/wiki': [
             '#wiki-body', // wiki 正文
             'ul.list-style-none.mx-4.px-1', // 右側目錄
+        ],
+        'repository/security': [
+            'td.blob-code',
         ],
         'orgs': [
             'a[itemprop="name codeRepository"]', // 倉庫名稱
@@ -845,6 +851,8 @@ I18N["zh-TW"]["public"] = { // 公共區域翻譯
                 "Rich Jupyter Notebook Diffs": "Jupyter Notebook 的豐富差異視圖",
                     "Enables rich diffs of Jupyter Notebooks in pull requests": "在拉取請求中啟用 Jupyter Notebook 的豐富差異視圖",
                     "Note: commenting on rich diff views of notebooks is not yet supported": "注意：尚不支持對 Jupyter Notebook 的豐富差異視圖進行評論",
+                "Semantic issue search": "語義議題搜索",
+                    "Find issues using the new semantic search. Enter natural language queries on a repo’s Issues page to discover relevant, semantically-indexed results. You can also combine filters and keywords for traditional searches.": "使用新的語義搜索查找問題。在存儲庫的問題頁面上輸入自然語言查詢，以發現相關的語義索引結果。您還可以結合過濾器和關鍵字進行傳統搜索。",
                 "New Files Changed Experience": "新版文件更改體驗",
                     "Feature enabling the new Files Changed Page": "啟用新版更改的文件頁",
                 "New Files Changed Perf Experiment": "新版更改的文件性能優化",
@@ -858,8 +866,13 @@ I18N["zh-TW"]["public"] = { // 公共區域翻譯
                     "Please": "請",
                     "give feedback": "提交反饋",
                     "so we can improve it!": "以便我們加以改進！",
+                "Semantic issue search": "語義議題搜索",
+                    "Find issues using the new semantic search. Enter natural language queries on a repo’s Issues page to discover relevant, semantically-indexed results. You can also combine filters and keywords for traditional searches.": "使用新的語義議題搜索功能查找議題。在倉庫的議題頁面輸入自然語言查詢，即可發現語義索引的相關結果。您還可以結合過濾器和關鍵詞進行傳統搜索。",
                 // 出錯提示
                     "Sorry, something went wrong and we were not able to fetch the feature previews": "對不起，出了點問題，我們無法獲取功能預覽",
+                "Changes saved! Please": "更改已保存！請",
+                    "reload": "刷新",
+                    "the page to view the changes.": "頁面以查看更改。",
             "Appearance": "外觀",
             "Accessibility": "無障礙",
             "Upgrade": "升級",
@@ -1975,14 +1988,21 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
     "static": { // 靜態翻譯
         // 頂部 GPT 聊天窗口
         "Ask anything": "詢問任何事",
+        "Ask": "詢問",
         "Send": "發送",
         "Feedback": "反饋",
             "Message": "消息",
             "Tell us your feedback on the new dashboard experience":"告訴我們您對新儀表板體驗的反饋",
             "Please don’t include sensitive, confidential, or personal data. Your feedback helps us improve our services in line with our":"請不要包含敏感、機密或個人信息。您的反饋有助於改進我們的服務",
 
+        // 智能體任務
+            "Start an agent session to create new work or iterate on an existing project.": "啟動智能體會話以新建工作或迭代現有專案。",
+            "Start a session": "啟動一個會話",
+
         // 新版首頁功能區
+        "Ask": "詢問",
         "Task": "任務",
+        "to access more models and higher limits.": "來獲得更多模型和更高限制。",
         "Create issue": "創建議題",
             "First, create a new draft issue. Then ask for additional information to fill out the issue.":"首先，創建一個新的草稿議題。然後，要求提供更多信息來完善議題。",
             "First, create an issue with sub issues. Then ask for additional information to fill out these issues.":"首先，創建一個包含子議題的議題。然後，要求提供更多信息來完善這些子議題。",
@@ -2205,6 +2225,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "forked": "複刻了",
         "from": "來自",
         "for": "",
+        "pushed": "推送",
         "pushed to": "推送到",
         "released": "發佈了",
         "published": "發佈了",
@@ -2215,6 +2236,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "a repository": "1 個倉庫",
         "has a new repository": "創建了倉庫",
         "created a repository": "創建了倉庫",
+        "a branch in": "一個分支在",
         "created a branch in": "創建了一個分支在",
         "in": "分支在",
         "Forked to": "複刻為",
@@ -2228,6 +2250,13 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "launched their sponsorship page 💖": "推出了他們的贊助頁面 💖",
         //[/and (\d+) more/, "和另外 $1 個"],
         "All reactions": "所有看法",
+        "commented on an issue in": "於一個議題發表了評論在",
+        "commented on a pull request in": "於一個拉取請求發表了評論在",
+        "opened a pull request": "打開了一個拉取請求在",
+        "closed a pull request": "關閉了一個拉取請求在",
+        "opened": "打開",
+        "deleted": "刪除",
+        "commented on": "發表了評論於",
 
         "published a release": "發佈發行版",
         "forked a repository": "複刻倉庫",
@@ -2242,6 +2271,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "your repository": "您的倉庫",
 
         "Read more": "閱讀更多內容",
+        "Load more...": "加載更多……",
 
         "Subscribe to your news feed": "訂閱您的新聞提要",
         "Subscribe to the": "訂閱", // 組織
@@ -2287,7 +2317,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "The world’s fair of software is here.": "世界軟體博覽會就在這裡。",
         "The GitHub Universe call for sessions is now open! Apply to share your expertise by submitting a session proposal today. Plus, get 35% off your tickets to GitHub Universe only for a limited time.": "GitHub Universe 的會議徵集現已開啟！立即提交您的會議提案，分享您的專業知識。此外，現在限時可享 35% 的 GitHub Universe 會議門票折扣。",
 
-        // 教育看板（申請教育包才有
+        // 教育看板（申請教育包才有）
         "Learn. Collaborate. Grow.": "學習，協作，成長。",
         "GitHub Education gives you the tools and community support to take on tech challenges and turn them into opportunities. Your future in tech starts here!": "GitHub 教育提供工具和社區支持，幫助您應對技術挑戰並將其轉化為機遇。您科技領域的未來從這裡開始！",
         "Go to GitHub Education": "前往 GitHub 教育",
@@ -2300,6 +2330,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         // [/(\d+) repositor(y|ies)/, "$1 個倉庫"],
         // [/(\d+) members?/, "$1 個成員"],
 
+        "Go to organization dashboard": "前往組織儀表板", // 組織
         "Switch dashboard context": "切換默認身份", // 組織
         "Manage organizations": "管理組織", // 組織
         "Create organization": "創建組織", // 組織
@@ -2332,6 +2363,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
             "Assigned to Copilot": "分配給 Copilot",
     },
     "regexp": [ // 正則翻譯
+        [/(\d+) pull requests/, "$1 個拉取請求"],
         [/added (\d+) repositor(y|ies) to/, "添加 $1 個倉庫到"],
         [/, and (\d+) more/, "，以及其他 $1 個組織"], // 用戶 浮動信息卡
         [/(\d+) repositor(y|ies)/, "$1 個倉庫"], // 組織  浮動信息卡
@@ -9892,6 +9924,13 @@ I18N["zh-TW"]["repository/issues"] = { // 倉庫 - 議題頁面
                     // Copilot
                         "Your AI pair programmer": "您的 AI 編程助理",
                         "Assign to Copilot": "受理給 Copilot",
+                        // 窗口
+                            "Assign Copilot to issue": "分配議題給 Copilot",
+                            "Feedback": "反饋",
+                                "Copilot will open a pull request using the issue's description, comments, and the additional prompt if you provide one. Choose a custom agent to tailor Copilot for specific tasks.": "Copilot 將根據議題的描述、評論以及您提供的額外提示詞（若有）來開啟拉取請求。您可以選擇自定義智能體，以便針對特定任務定製 Copilot。",
+                                "Optional prompt": "提示詞（可選）",
+                                    "Provide additional instructions for Copilot": "提供可選提示給 Copilot",
+                                "Auto": "自動",
                     "Exclude assignee": "排除受理人",
                 "Author": "作者",
                     "Has author": "包含作者",
@@ -10725,6 +10764,7 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "Merging this pull request will resolve a": "合併此拉取請求將解決",
                 "high": "高",
                 "severity": "嚴重性",
+                    "Filter alerts by 'high' severity.": "按“高”嚴重性過濾警報。", // BUG: 不生效
                 "Dependabot alert": "Dependabot 警報",
                 "on": "：",
                 // 首次彈窗
@@ -10757,6 +10797,7 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
             "started work": "開工",
             "on behalf of": "代表",
                 "View session": "查看",
+            "finished work": "完工",
             "finished work on behalf of": "完工，代表",
             "stopped work on behalf of": "停工，代表",
                 "due to an error": "因為錯誤",
@@ -12195,6 +12236,7 @@ I18N["zh-TW"]["repository/commit"] = { // 倉庫 - 提交頁面
             // 用戶篩選
                 "All users": "所有用戶",
                 "Find a user...": "尋找一個用戶……",
+                "Filter on author": "篩選作者：",
                 "View commits for all users": "查看所有用戶的提交",
             // 時間篩選
                 "All time": "所有時間",
@@ -15585,6 +15627,9 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
 
         // 具體某條 程式碼掃描 警報/<user-name>/<repo-name>/security/security/code-scanning/<id>
             "Code scanning alerts": "程式碼掃描警報",
+            // 狀態詞
+                "Dismissed": "關閉",
+            "← Code scanning alerts": "← 程式碼掃描警報",
             "Speed up the remediatiof this alert with": "加快修復此警報的速度，使用", // BUG: 翻譯不生效
                 "Copilot Autofix for CodeQL": "CodeQL 的 Copilot 自動修復",
             "Generate fix": "創建修復",
@@ -15613,6 +15658,9 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
                     "The following configurations have reported this alert.": "以下配置已報告此警報。",
                     "Last updated": "最後更新",
             "Appeared in branch": "出現在分支",
+            "Show paths": "顯示路徑",
+                "Source": "源頭",
+                "Sink": "匯點",
 
         // /<user-name>/<repo-name>/security/code-scanning/tools/CodeQL/status
             "Scanned files": "掃描文件",
@@ -15622,6 +15670,26 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
             "· Last scan": "· 最近一次掃描",
             "Menu": "菜單",
             "View setup type": "查看設置類型",
+
+        // /<user-name>/<repo-name>/security/code-scanning/tools/CodeQL/status/configurations/automatic
+            // 設置類型
+                "This setup is working as expected.": "此設置正在按預期工作。",
+                // 詳細信息
+                    "Setup type": "設置類型",
+                    "First scan": "首次掃描",
+                    "Last scan": "最後掃描",
+                "Scan events": "掃描事件",
+                    "Push to": "推送到",
+                    "Pull request to": "拉取請求到",
+            "Configurations": "配置",
+                "last scan": "最後掃描", // BUG: 不生效
+                "This configuratiis working as expected.": "此配置正在按預期工作", // BUG: 不生效
+                "Configuratimenu": "配置菜單", // BUG: 不生效
+                    "Delete configuration": "刪除配置",
+                    "Download list of rules used": "下載所用規則列表",
+                // 詳細信息
+                    "Configuration": "配置",
+                    "Tool version": "工具版本",
 
         // 機密掃描警報 /<user-name>/<repo-name>/security/secret-scanning
             // 頂端窗口
@@ -15817,6 +15885,8 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
             const translatedDate = dateRegExp.reduce((acc, [pattern, replacement]) => acc.replace(pattern, replacement), p1);
             return `初次檢測 ${translatedDate}`;
         }],
+        [/(\d+) steps? in (.+)/, "$1 個步驟在 $2"],
+        [/Step (\d+)/, "步驟 $1"]
     ],
     "title": {
         "regexp": [
@@ -15826,6 +15896,7 @@ I18N["zh-TW"]["repository/security"] = { // 倉庫 - 安全頁面
             [/Dependabot alerts?/, "Dependabot 警報"],
             [/Code scanning alerts?/, "程式碼掃描警報"],
             [/Secret scanning/, "機密掃描"],
+            [/Code scanning tool status/, "程式碼掃描工具狀態"],
         ],
     },
 };
@@ -16909,6 +16980,8 @@ I18N["zh-TW"]["repository/settings"] = { // 倉庫設置 - 通常 /<user-name>/<
         ...I18N["zh-TW"]["repository-settings-menu"]["static"],
 
         // 通常 - 設置頁面 /<user-name>/<repo-name>/settings ====================================
+            "You don't have access to repository options": "你沒有對倉庫設置的訪問權限",
+                "Check the sidebar for available repository settings.": "在側邊欄中查看可用的倉庫設置。",
             "Repository name": "倉庫名稱",
             "Rename": "重命名",
                 // [/is available./, "名稱可用。"],
@@ -18275,6 +18348,14 @@ I18N["zh-TW"]["repository/settings/actions"] = { // 倉庫設置 - 操作 /<user
                 "There is a maximum limit of": "最多",
 
                 "days": "天",
+
+            "Cache": "緩存",
+                "Choose the repository settings for cache.": "選擇此存儲庫的緩存設置。",
+                "Cache retention": "緩存保留",
+                    "Retention can be set up to": "保留可以設置為",
+                "Cache size eviction limit": "緩存大小逐出限制",
+                    "Use this limit to control when cache evictions occur. Exceeding this limit will trigger evictions of the least recently used cache. Note this limit should not be used for controlling costs.": "使用此限制來控制何時發生緩存逐出。超過此限制將觸發最近最少使用的緩存的逐出。請注意，此限制不應用於控制成本。",
+                    "Total cache size can be set up to": "總緩存大小可設置為",
 
             "Fork pull request workflows": "複刻拉取請求工作流程",
                 "Run workflows from fork pull requests": "從複刻拉取請求運行工作流程",
@@ -20616,6 +20697,7 @@ I18N["zh-TW"]["notifications"] = { // 通知頁面
             "Marking your notifications as \"done\" helps to create a more focused inbox. Don't worry - if there is new activity, you'll still be notified.": "將您的通知標記為 “已完成” 有助於創建一個更加集中的收件箱。不用擔心 - 如果有新的活動，您仍然會收到通知。",
             "Mark all read notifications as done": "將所有已讀通知標記為已完成",
             "This process could take a few moments depending on the quantity.": "這個過程可能會根據數量的多少而耗費一些時間。",
+            "Bulk actions currently being processed.": "批量操作正在處理中。",
             "Bulk action processing complete.": "批量操作處理完成。",
 
         "Manage notifications": "管理通知",
@@ -27678,6 +27760,7 @@ I18N["zh-TW"]["copilot"] = {
                         "Are you sure you want to delete this chat? This action cannot be undone.": "您確定要刪除該聊天嗎？此操作無法撤銷。",
 
         // 中間
+            "Ask": "詢問",
             // 模型選擇窗
                 "Models": "模型",
                     "Fast and cost-efficient": "快速、經濟高效",
