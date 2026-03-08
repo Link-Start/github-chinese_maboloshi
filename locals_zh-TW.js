@@ -48,7 +48,7 @@ I18N.conf = {
     rePagePath: /^\/($|home|dashboard|feed|copilot|spark|signup|account_verifications|login\/oauth|login|logout|sessions?|password_reset|orgs|explore|topics|notifications\/subscriptions|notifications|watching|stars|issues|pulls|repos|search|trending|showcases|new\/(import|project)|new|import|settings\/(profile|admin|appearance|accessibility|notifications|billing|emails|security_analysis|security-log|security|auth|sessions|keys|ssh|gpg|organizations|enterprises|blocked_users|interaction_limits|code_review_limits|repositories|codespaces|models|codespaces\/allow_permissions|deleted_repositories|packages|copilot|pages|replies|installations|apps\/authorizations|reminders|sponsors-log|apps|(?:personal-access-|)tokens|developers|applications\/new|applications|connections\/applications|education\/benefits)|settings|installations\/new|marketplace|apps|account\/(organizations\/new|choose|upgrade|billing\/history)|projects|redeem|discussions|collections|sponsors|sponsoring|github-copilot\/(signup|free_signup|code-review-waitlist|pro)|codespaces|developer\/register|features|security|sitemap|education|mcp)|^\/users\/[^\/]+\/(projects|packages|succession\/invitation)/,
 
     // 倉庫路徑
-    rePagePathRepo: /^\/[^\/]+\/[^\/]+\/(issues|pulls|pull|tree|watchers|stargazers|new|edit|delete|upload|find|models|wiki|branches|discussions|activity|rules|releases|packages|tags|labels|milestones?|compare|commit|blob|blame|actions(\/metrics\/(usage|performance))?|runs|deployments|security|pulse|community|forks|fork|import|graphs\/(contributors|community|traffic|commit-activity|code-frequency)|network$|network\/(dependencies|dependents|updates|members)|settings\/(access|code_review_limits|interaction_limits|branches|branch_protection_rules|tag_protection|rules|actions|models\/access-policy|hooks|copilot\/(code_review|coding_agent)|environments|codespaces|pages|security_analysis|dependabot_rules|keys|secrets|variables|installations|notifications|key_links)|settings|transfer|projects\/new|projects|pkgs|contribute|subscription|invitations|codespaces|attestations|custom-properties|reported_content|agents)/,
+    rePagePathRepo: /^\/[^\/]+\/[^\/]+\/(issues|pulls|pull|tree|watchers|stargazers|new|edit|delete|upload|find|models|wiki|branches|discussions|activity|rules|releases|packages|tags|labels|milestones?|compare|commit|blob|blame|actions(\/metrics\/(usage|performance))?|runs|deployments|security|pulse|community|forks|fork|import|graphs\/(contributors|community|traffic|commit-activity|code-frequency)|network$|network\/(dependencies|dependents|updates|members)|settings\/(access|code_review_limits|interaction_limits|branches|branch_protection_rules|tag_protection|rules|actions|models\/access-policy|hooks|copilot\/(code_review|coding_agent)|environments|codespaces|pages|security_analysis|dependabot_rules|keys|secrets|variables|installations|notifications|key_links)|settings|transfer|projects\/new|projects|pkgs|contribute|subscription|invitations|codespaces|attestations|custom-properties|reported_content|agents|tasks)/,
 
     // 組織路徑
     rePagePathOrg: /^\/[^\/]+\/[^\/]+\/(repositories\/new|repositories|sponsoring|discussions|projects|packages|teams|new-team|people|outside-collaborators|pending_collaborators|dashboard|billing_managers\/new|invitations?|settings\/(profile|billing|roles|member_privileges|teams|import-export|blocked_users|interaction_limits|code_review_limits|moderators|repository-defaults|rules|codespaces|copilot|actions|hooks|discussions|packages|pages|projects|security_analysis|security|dependabot_rules|domains|secrets|variables|oauth_application_policy|installations|personal-access-token|reminders|sponsors-log|audit-log|deleted_repositories|applications\/new|applications|apps\/new|apps|publisher|policies\/repositories)|topics|domain\/new|audit-log\/event_settings|billing\/(history|plans)|policies\/applications)|^\/[^\/]+\/(enterprise_plan|sponsoring)/,
@@ -9225,6 +9225,12 @@ I18N["zh-TW"]["repository"] = { // 倉庫頁面 /<user-name>/<repo-name>/
             // 編輯按鈕
             "Edit README": "編輯 README", // md 文件
 
+            // 超過 1000 個文件截斷提示
+            "Sorry, we had to truncate this directory to": "抱歉，我們已將該目錄截斷至",
+                "files.": "文件。",
+                "entries were": "條目",
+                "omitted from the list. Latest commit info may be omitted.": "被省略。最新提交信息可能會省略。",
+
         // 文件管理器 - 議題模板 /<user-name>/<repo-name>/tree/<branch>/.github/ISSUE_TEMPLATE
             "Customize the issue creation experience with a": "自定義議題的創建模板使用一個",
             "file.": "文件。",
@@ -11392,6 +11398,10 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "2-up": "並排",
                 "Swipe": "拖拽",
                 "Onion Skin": "漸變",
+
+            // 大型拉取請求提示
+            "This page has been optimized for large pull requests. Some browser features (like Find on Page or Select All) may not work as expected.": "此頁面已針對大型拉取請求進行了優化。某些瀏覽器功能（如頁面查找或全選）可能無法正常工作。",
+                "Switch to single file mode": "切換至單文件模式",
 
             "These merge commits were added into this branch cleanly.": "這些合併提交已被幹淨利落地添加到該分支中。",
                 "There are no new changes to show.": "沒有任何新的變化。",
@@ -15976,6 +15986,26 @@ I18N["zh-TW"]["repository/invitations"] = { // 倉庫 - 接受邀請頁面
     "regexp": [ // 正則翻譯
         [/of ([^ ]+) will be able to see:/, "$1 將能夠看到："], // 邀請頁
         [/Block ([^ ]+)/, "拉黑 $1"],
+    ],
+};
+
+I18N["zh-TW"]["repository/tasks"] = {
+    "static": {
+        "You": "您",
+        "created the session": "創建此任務",
+
+        "session": "任務",
+        "premium request": "高級請求",
+
+        "started a task": "開始任務",
+
+        "Stop": "停止",
+        "Setting up environment": "設置環境",
+        "View repository": "查看倉庫",
+    },
+    "regexp": [
+        [/View (\d+) files?/, "查看 $1 個文件"],
+        [/Edit (\d+) files?/, "編輯 $1 個文件"],
     ],
 };
 
@@ -22195,6 +22225,7 @@ I18N["zh-TW"]["login/oauth"] = { // 應用授權
         // 選擇賬戶授權 https://github.com/login/oauth/select_account?*
             //"Select user to authorize": "選擇用戶進行授權",
             //"Signed in as": "登錄身份為",
+            "From the options below, choose which account you would like to use to authorize this app.": "從下面的選項中，選擇您要使用哪個帳戶來授權此應用程式。",
             "Use a different account": "使用其他賬戶",
 
     },
