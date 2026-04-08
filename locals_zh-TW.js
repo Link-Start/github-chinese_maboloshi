@@ -54,7 +54,7 @@ I18N.conf = {
     rePagePathOrg: /^\/[^\/]+\/[^\/]+\/(repositories\/new|repositories|sponsoring|discussions|projects|packages|teams|new-team|people|outside-collaborators|pending_collaborators|dashboard|billing_managers\/new|invitations?|settings\/(profile|billing|roles|member_privileges|teams|import-export|blocked_users|interaction_limits|code_review_limits|moderators|repository-defaults|rules|codespaces|copilot|actions|hooks|discussions|packages|pages|projects|security_analysis|security|dependabot_rules|domains|secrets|variables|oauth_application_policy|installations|personal-access-token|reminders|sponsors-log|audit-log|deleted_repositories|applications\/new|applications|apps\/new|apps|publisher|policies\/repositories)|topics|domain\/new|audit-log\/event_settings|billing\/(history|plans)|policies\/applications)|^\/[^\/]+\/(enterprise_plan|sponsoring)/,
 
     // 特定頁面，啟用`字符數據`監測
-    characterDataPage: ['repository/new', 'repository/edit', 'new', 'new/import', 'orgs/repositories/new', 'repository/blob', 'repository/pull', 'marketplace', 'homepage', 'repository/issues', 'repository/commit', 'copilot', 'spark', 'repository/settings/rules'],
+    characterDataPage: ['repository/new', 'repository/edit', 'new', 'new/import', 'orgs/repositories/new', 'repository/blob', 'repository/pull', 'marketplace', 'homepage', 'repository/issues', 'repository/commit', 'copilot', 'spark', 'repository/settings/rules', 'pulls'],
 
     // 特定頁面，忽略突變元素規則
     ignoreMutationSelectorPage: {
@@ -852,6 +852,8 @@ I18N["zh-TW"]["public"] = { // 公共區域翻譯
                         "other:": "其他：",
                 "Organization Custom Instructions": "組織自定義指令",
                     "Organization administrators can apply custom instructions across all Copilot chats in github.com.": "組織管理員可以在 GitHub.com 的所有 Copilot 聊天中應用自定義指令。",
+                "New Pull Requests Dashboard": "新版拉取請求儀表板",
+                    "The updated pull requests overview (github.com/pulls) introduces saved views, smart default filters, and enhanced search, making it easier to organize and find pull requests across your repos, teams, and orgs. Once enabled, please refresh to see the changes.": "更新後的拉取請求概覽（github.com/pulls）引入了保存的視圖、智能默認過濾器和增強的搜索功能，使您更輕鬆地組織並查找倉庫、團隊和組織中的拉取請求。啟用後，請刷新以查看更改。",
                 "New Dashboard Experience": "新儀表板體驗",
                     "The updated home dashboard introduces enhanced agent workflows, making it easier to create and manage agent sessions, issues, and pull requests directly from your personalized dashboard. Once enabled, please refresh to see the changes.": "更新後的主頁儀表板引入了增強的智能體工作流，使您可以更輕鬆地直接從個性化儀表板創建和管理智能體會話、議題和拉取請求。啟用後，請刷新以查看更改。",
                 "Rich Jupyter Notebook Diffs": "Jupyter Notebook 的豐富差異視圖",
@@ -2428,7 +2430,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         [/Good evening, ([^ ]+)!/, "晚上好，$1！"],
         [/Switch dashboard: ([^ ]+)/, "切換儀表板：$1"],
         [/(.+)\#(\d+) · Opened by ([^ ]+) ·/, "$1#$2 · 打開者 $3"],
-        [/(\d+) characters remaining/, "還可輸入 $1 個字元"],
+        [/(\d+) characters remaining/, "還可輸入 $1 個字符"],
     ],
     "title": {
         "static": {
@@ -2507,7 +2509,7 @@ I18N["zh-TW"]["page-profile-public"] = { // 個人首頁（含組織）
                     "inaccessible": "已刪庫",
                     "Merged without a review": "未經審查就合併",
                 // Pull Shark
-                    "Pull Shark": "鯊魚拉",
+                    "Pull Shark": "合縱連橫",
                     "Bronze unlocked": "青銅已解鎖",
                     "Bronze and Silver unlocked": "青銅和白銀已解鎖",
                     "· First unlocked": "· 首次解鎖於",
@@ -2522,16 +2524,16 @@ I18N["zh-TW"]["page-profile-public"] = { // 個人首頁（含組織）
                     "⭐️ 512 stars": "⭐️ 512 個星標",
                     "⭐️ 4096 stars": "⭐️ 4096 個星標",
                 // Pair Extraordinaire
-                    "Pair Extraordinaire": "非凡搭檔",
+                    "Pair Extraordinaire": "珠璧聯輝",
                     "Unlocked": "解鎖於",
                     "Coauthored with": "與下列用戶共同合作",
                     "Coauthored with an unknown user": "與未知用戶共同合作",
                 // Quickdraw
-                    "Quickdraw": "快速關閉",
+                    "Quickdraw": "電光石火",
                     "Gitty up!": "趕快開始！",
                     "Closed within 5 minutes of opening": "在打開的 5 分鐘內關閉",
                 // Galaxy Brain
-                    "Galaxy Brain": "銀河大腦",
+                    "Galaxy Brain": "天工慧心",
                     "2nd accepted answer": "2 個答案被接受",
                     "8th accepted answer": "8 個答案被接受",
                     "16th accepted answer": "16 個答案被接受",
@@ -4275,6 +4277,7 @@ I18N["zh-TW"]["settings/billing"] = { // 設置 - 賬單和計劃
             "Next payment due": "下一次應付款",
 
             "Subscriptions": "訂閱",
+                "Copilot Student": "Copilot 學生",
                 "Manage subscriptions": "管理訂閱",
                 "per": "/",
                 "month": "月",
@@ -4467,6 +4470,7 @@ I18N["zh-TW"]["settings/billing"] = { // 設置 - 賬單和計劃
 
             // 獲取使用情況報告
                 "Premium requests usage report": "高級請求使用報告",
+                "Get premium request usage report": "獲取高級請求使用報告",
                     "Detailed per-user breakdown of premium requests consumed.": "詳細列出每位用戶消耗的高級請求數量。",
                 "Legacy usage report": "舊版使用報告",
 
@@ -4885,6 +4889,7 @@ I18N["zh-TW"]["settings/billing"] = { // 設置 - 賬單和計劃
             const translatedDate = dateRegExp.reduce((acc, [pattern, replacement]) => acc.replace(pattern, replacement), p1);
             return `過去 45 天內每用戶高級請求明細。${translatedDate} 日落`;
         }],
+        [/of (\d+) included/, "/$1"], // 高級請求總數
 
         // billing 概況頁面
         [/(?:Gross metered usage|Included usage discounts) for (.+) - (.+).$/, (match, p1, p2) => { // 概況下方小字，過於囉嗦直接省略
@@ -4895,6 +4900,9 @@ I18N["zh-TW"]["settings/billing"] = { // 設置 - 賬單和計劃
             const translatedP2 = dateRegExp.reduce((acc, [pattern, replacement]) => acc.replace(pattern, replacement), p2);
             return `${translatedP1}-${translatedP2}`;
         }],
+        // 訂閱相關
+        [/^(\$\d+(\.\d+)?) off$/, "$1 減免"],
+        [/· (\d+) years? remaining/, " · 剩餘 $1 年"],
         //[/Included usage discounts for (.+) - (.+)./, (match, p1, p2) => {
         //    const translatedP1 = I18N["zh-TW"]["public"]["time-regexp"][p1] || p1;
         //    const translatedP2 = I18N["zh-TW"]["public"]["time-regexp"][p2] || p2;
@@ -4903,6 +4911,7 @@ I18N["zh-TW"]["settings/billing"] = { // 設置 - 賬單和計劃
         [/([\d,]+) min used \/ ([\d,]+) min included/, "$1 / $2 分鐘"],
         //(\d+) min used \/ ([\d,+]) min included
         [/(\d+) GB used \/ (\d+) GB included/, "$1/$2 GB"],
+        [/Based on (\d+) additional premium requests? beyond your included usage./, "超額高級請求：$1"],
         // 當前包含用量 - 詳情 對話框
             [/Current usage for (.+) - (.+). Monthly quota resets in (\d+) day\(s\)./, (match, p1, p2, p3) => {
                 const dateRegExp = I18N["zh-TW"]["public"]["time-regexp"];
@@ -6144,6 +6153,7 @@ I18N["zh-TW"]["settings/copilot"] = { // 設置 - GitHub Copilot
                 "Copilot Chat in GitHub.com": "在 GitHub.com 中使用 Copilot Chat",
                     "You can use Copilot Chat in GitHub.com. Copilot code review and preview features are only available for paid licenses.": "您可以在 GitHub.com 中使用 Copilot Chat。Copilot 程式碼審查和預覽功能僅適用於付費版。",
                     "You can use Copilot Chat in GitHub.com. Preview features are only available for paid licenses.": "您可以在 GitHub.com 中使用 Copilot Chat。預覽功能僅適用於付費版。",
+                    "You can use Copilot Chat in GitHub.com and Copilot for pull requests. Preview features are only available for paid licenses.": "您可以在 GitHub.com 中使用 Copilot Chat 和 Copilot 拉取請求。預覽功能僅適用於付費版。",
                     "Learn more about Copilot in GitHub.com": "瞭解更多關於在 GitHub.com 中使用 Copilot 的信息",
                 "Editor preview features": "編輯器預覽功能",
                     "You can use preview features in your editor.": "您可以在編輯器中使用預覽功能。",
@@ -6161,6 +6171,7 @@ I18N["zh-TW"]["settings/copilot"] = { // 設置 - GitHub Copilot
                     "About GitHub Copilot privacy.": "關於 GitHub Copilot 隱私的信息。",
                 "Allow GitHub to use my data for AI model training": "允許 GitHub 將數據用於訓練 AI 模型",
                     "Allow GitHub, its affiliates and third parties to use my data, including Prompts, Suggestions, and Code Snippets, for AI model training. More information in the": "允許GitHub、其關聯公司和第三方使用我的數據，包括提示、建議和程式碼片段，以訓練 AI 模型。更多信息請查看",
+                    "Allow GitHub to collect and use my Inputs, Outputs, and associated context to train and improve AI models. Read more in the": "允許 GitHub 收集並使用我的輸入、輸出、交互上下文以訓練並提升 AI 模型。更多信息在",
                 "Copilot can search the web": "網絡搜索",
                     "Copilot can answer questions about new trends and give improved answers, via Bing. See": "Copilot 可以回答有關新趨勢的問題並給出改進的答案，通過必應。請參閱",
                     "Microsoft Privacy Statement": "微軟隱私聲明",
@@ -6237,6 +6248,10 @@ I18N["zh-TW"]["settings/copilot"] = { // 設置 - GitHub Copilot
                 "Copilot coding agent": "Copilot 編程智能體",
                     "With Copilot coding agent, you can delegate tasks to Copilot, freeing you to focus on the creative, complex, and high-impact work that matters most. Simply assign an issue to Copilot, wait for the agent to request your review, then leave feedback on the pull request to iterate.": "使用 Copilot 編程智能體，您可以將任務委託給 Copilot，從而讓您專注於最具創造性的、複雜且影響深遠的工作。只需將問題分配給 Copilot，等待智能體請求您審查，然後在拉取請求中留下反饋以進行迭代。",
                     "Delegate tasks to Copilot coding agent in repositories where it is enabled": "將任務委託給已啟用 Copilot 編程智能體的倉庫",
+                "Copilot Memory": "Copilot 記憶",
+                    "to remember repository context across Copilot agent interactions.": "在 Copilot 智能體交互過程中記住程式碼倉庫上下文。",
+                    "This preview is governed by": "此預覽受此約束：",
+                    "GitHub's pre-release terms": "GitHub 預發行條款",
                 "MCP servers in Copilot": "Copilot 中的 MCP 服務器",
                     "Connect MCP servers to Copilot in all Copilot editors and Coding Agent.": "在所有 Copilot 編輯器和編程智能體中連接 MCP 服務器。",
                 // Grok
@@ -8140,7 +8155,7 @@ I18N["zh-TW"]["repository-public"] = { // 倉庫 - 公共部分
             "Actions": "操作",
             "Projects": "專案",
             "Models": "模型",
-            "Security": "安全",
+            "Security and quality": "安全和質量",
             "Insights": "洞察",
             "Settings": "設置",
 
@@ -8176,6 +8191,7 @@ I18N["zh-TW"]["repository-public"] = { // 倉庫 - 公共部分
                     //[/This user has been invited to collaborate on the ([^ ]+) repository./, "該用戶已被邀請在 $1 倉庫上進行協作。"],
                 "Pick your reaction": "選擇您的表情",
                 "Copy link": "複製鏈接",
+                "Copy Markdown": "複製為 Markdown",
                 "Quote reply": "引用回覆",
                 "Reference in new issue": "引用到新議題",
                     // 引用到新議題 對話框
@@ -8185,6 +8201,7 @@ I18N["zh-TW"]["repository-public"] = { // 倉庫 - 公共部分
                     "Select repository": "選擇倉庫",
                     "Repository:": "倉庫：",
                     "No matching repositories.": "沒有匹配的倉庫。",
+                "Pin": "置頂",
                 "Report content": "舉報內容",
                 "Report": "舉報",
                 // 評論刪除提醒
@@ -8835,6 +8852,7 @@ I18N["zh-TW"]["repository"] = { // 倉庫頁面 /<user-name>/<repo-name>/
                     "You can rename this fork's default branch to match in": "您可以重命名此複刻默認分支以匹配，在",
                     "branch settings": "分支設置",
 
+            "Draft a new release": "起草發行版",
             "branch": "分支",
             "branches": "分支",
             "tag": "標籤",
@@ -9264,6 +9282,8 @@ I18N["zh-TW"]["repository"] = { // 倉庫頁面 /<user-name>/<repo-name>/
         [/Successfully fetched and fast-forwarded from upstream ([^ ]+)\./, "成功從上游 $1 中獲取並快速轉發。"],
         [/Successfully discarded changes and synchronized branch to match upstream ([^ ]+)\./, "成功丟棄更改，並將分支與上游 $1 保持同步。"],
         ...I18N["zh-TW"]["repository-public"]["regexp"],
+        [/More than (\d+) unreleased commits since ([^ ]+)/, "$2 以來有超過 $1 個未發佈的提交"],
+        [/(\d+) unreleased commits since ([^ ]+)/, "$2 以來有 $1 個未發佈的提交"],
         [/commits by (.+)/, "由 $1 提交"],
         [/Signed-off-by: (.*)/, "簽字人：$1"], // TODO: 修復該詞條翻譯不生效問題
         [/Branch ([^ ]+) was renamed to ([^ ]+)./, "分支 $1 已更名為 $2。"],
@@ -10052,8 +10072,8 @@ I18N["zh-TW"]["repository/issues"] = { // 倉庫 - 議題頁面
                     "Has review state": "包含評審狀態",
                     "Exclude review": "排除評審狀態",
                     "No reviews": "無評審",
-                "Code language": "程式碼語言",
-                    "Has code language": "包含程式碼語言",
+                "Language": "程式碼語言",
+                    "Has language": "包含程式碼語言",
                     "Exclude language": "排除程式碼語言",
                 "Commit SHA": "提交 SHA",
                     "Has commit sha": "包含提交 SHA",
@@ -10400,7 +10420,7 @@ I18N["zh-TW"]["repository/issues"] = { // 倉庫 - 議題頁面
                 "Name": "名稱",
                 "Label name": "標籤名",
                 "Description": "描述",
-                "Optionally add a description": "可選新增描述",
+                "Optionally add a description": "可選添加描述",
                 "Description (optional)": "描述（可選）",
                 "Color": "顏色",
                     "Get a new color": "獲得新顏色",
@@ -11400,6 +11420,12 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                     // 頂部提醒
                         "You need to leave a comment indicating the requested changes.": "您需要留下評論，說明所要求的更改。",
                 "Cancel review": "取消審核",
+                "Commit suggestions": "提交建議",
+                "Discard batch": "放棄批處理",
+                    "Discard batch?": "放棄批處理？",
+                    "Are you sure you want to discard this batch? This will remove all": "您確定要放棄此批處理嗎？",
+                    "from the batch.": "將從批處理中移除。",
+                    "Discard": "放棄",
                 "pending": "條待處理",
                 "comment": "評論",
                 "comments": "評論",
@@ -11481,6 +11507,10 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "Sign off and commit changes": "簽署並提交更改",
                     "Applying commit...": "正在應用提交…",
 
+                "Apply suggestions": "應用建議",
+                    "Suggestions to apply": "待應用的建議",
+                    "There was an error trying to commit changes.": "嘗試提交更改時出錯。",
+                
                 "This diff has recently been updated.": "該差異最近已更新。",
                 "Refresh and try again.": "刷新並重試。",
 
@@ -11800,6 +11830,8 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
 
         // 建議更改
         //[/on this commit as ([^@]+@[^\n]+)/, "提交，身份為 $1"],
+        [/Remove suggestion from (.+)/,"從 $1 中移除建議"],
+        [/suggestions?/, "個建議"],
 
         // Copilot
         [/Copilot has encountered an internal error. If the problem persists, please contact GitHub Support, including the request ID `([^ ]+)`. To retry, leave a comment on this pull request asking Copilot to try again./, "Copilot 遇到了內部錯誤。如果問題仍然存在，請聯繫 GitHub 支持，並附上請求 ID `$1`。要重試，請在此拉取請求中發表評論，要求 Copilot 再試一次。"],
@@ -17083,10 +17115,15 @@ I18N["zh-TW"]["repository/settings"] = { // 倉庫設置 - 通常 /<user-name>/<
                 "A repository with LFS content cannot be used as a template.": "帶有 LFS 內容的倉庫不能作為模板使用。",
                 "Learn more about template repositories": "瞭解更多關於模板庫的信息",
 
+            "Commits": "提交",
                 "Require contributors to sign off on web-based commits": "要求貢獻者在基於 Web 的提交上籤署",
-                "Enabling this setting will require contributors to sign off on commits made through GitHub’s web interface. Signing off is a way for contributors to affirm that their commit complies with the repository's terms, commonly the": "啟用此設置將要求貢獻者簽署通過 GitHub 的 Web 界面所做的提交。簽署是貢獻者確認他們的提交符合倉庫條款的一種方式，通常是",
-                "Developer Certificate of Origin (DCO)": "開發者來源證書（DCO）",
-                "Learn more about signing off on commits": "瞭解更多關於簽署提交的信息",
+                    "Enabling this setting will require contributors to sign off on commits made through GitHub’s web interface. Signing off is a way for contributors to affirm that their commit complies with the repository's terms, commonly the": "啟用此設置將要求貢獻者簽署通過 GitHub 的 Web 界面所做的提交。簽署是貢獻者確認他們的提交符合倉庫條款的一種方式，通常是",
+                    "Developer Certificate of Origin (DCO)": "開發者來源證書（DCO）",
+                    "Learn more about signing off on commits": "瞭解更多關於簽署提交的信息",
+                "Allow comments on individual commits": "允許對單個提交發表評論",
+                    "Enabling this setting will allow anyone who can view this repository to add": "啟用此設置後，任何能查看該倉庫的人都可以添加",
+                    "commit comments": "提交評論",
+                    ". Existing commit comments are not affected by this setting and will remain viewable, editable, and deletable.": "。現有的提交評論不受此設置影響，依然可以查看、編輯和刪除",
 
             "This setting is enabled on the upstream repository. Disabling this setting may block commits from being merged upstream.": "此設置在上游倉庫中啟用。禁用此設置可能會阻止提交向上遊合併。",
 
@@ -17302,8 +17339,10 @@ I18N["zh-TW"]["repository/settings"] = { // 倉庫設置 - 通常 /<user-name>/<
                 "If you decide to make this repository public in the future, it will not be possible to restore these stars and watchers and this will affect its repository rankings.": "即使您決定將來公開此倉庫，也無法恢復這些星標者和關注者，這將影響其倉庫排名。",
                 "Dependency graph and Dependabot alerts will remain enabled with permission to perform read-only analysis on this repository.": "依賴項關係圖和 Dependabot 警報將保持啟用，並有權限對該倉庫進行只讀分析。",
                 "Dependency graph and Dependabot alerts will remain enabled with permission to perform read-only analysis on this repository. Any custom Dependabot alert rules will be disabled unless GitHub Advanced Security is enabled for this repository.": "依賴項關係圖和 Dependabot 警報將繼續啟用，並允許對該倉庫執行只讀分析。除非為該倉庫啟用了 GitHub 高級安全功能，否則任何自定義的 Dependabot 警報規則都將被禁用。",
+                "Any custom Dependabot alert rules will be disabled unless GitHub Advanced Security is enabled for this repository.": "除非為該倉庫啟用了 GitHub 高級安全，否則任何自定義的 Dependabot 警報規則都將被禁用。",
                 "Code scanning will become unavailable.": "程式碼掃描將變得不可用。",
                 "Current forks will remain public and will be detached from this repository.": "當前的複刻將保持公開，並將從該倉庫中分離出來。",
+                "Advanced Security will be disabled.": "高級安全將被禁用。",
                 "Make this repository private": "將此倉庫設為私有",
                 "I have read and understand these effects": "我已閱讀並理解這些影響",
 
@@ -21466,7 +21505,94 @@ I18N["zh-TW"]["issues"] = { // 議題頁面
         },
     },
 };
-I18N["zh-TW"].pulls = I18N["zh-TW"].issues;
+
+I18N["zh-TW"]["pulls"] = { // 拉取請求頁面
+    "static": {
+        ...I18N["zh-TW"]["issues"]["static"],
+
+        // 預覽
+            "What's new": "新功能",
+            "Switch to the classic experience": "切換到經典視圖",
+
+        // 側邊欄
+            "Inbox": "收件箱",
+                "Needs your review": "需要您的審查",
+                "Needs action": "需要操作",
+                "Ready to merge": "準備合併",
+                "All caught up": "全部已處理",
+                "When a pull request needs your review or attention, it'll appear here.": "當一個拉取請求需要您的審查或關注時，它將出現在這裡。",
+            "Authored by me": "由我創建",
+            "Involves me": "涉及我",
+
+        // 收件箱右上角
+            "Select repositories": "選擇倉庫",
+                "Select all": "全選",
+                "Select": "選擇",
+                "Loading repositories...": "加載倉庫中...",
+                "Use the search to find specific items": "使用搜索查找特定專案",
+                "Search or filter": "搜索或篩選",
+                // "Fork": "複刻",
+                    "Exclude fork": "排除複刻",
+                "Mirror": "鏡像",
+                    "Exclude mirror": "排除鏡像",
+                "License": "許可證",
+                    "Exclude license": "排除許可證",
+                "Visibility": "可見性",
+                    "Exclude visibility": "排除可見性",
+                    "Internal": "內部",
+                "Created": "已創建",
+                "Total forks": "複刻總數",
+                "Total good-first issues": "好的首發議題總數",
+                "Has": "包含文件",
+                "Total help-wanted issues": "求助議題總數",
+                "License": "許可證",
+                "Mirror": "鏡像",
+                "Size (Kb)": "大小 (Kb)",
+                "Sponsorable": "可接受贊助",
+                "Text": "文本",
+                "Total topics": "主題總數",
+                "Template": "模板",
+                "Topic": "話題",
+                "Visibility": "可見性",
+                "Admin Access": "管理員訪問權限",
+                "Contributions": "貢獻",
+
+        // 搜索結果框上邊欄
+            "result": "個結果",
+            "results": "個結果",
+            "Comfortable display density": "舒適視圖",
+            "Compact display density": "緊湊視圖",
+
+        // 搜索結果框
+            "Enter a query to start searching.": "輸入查詢以開始搜索。",
+            "No pull requests matched your search.": "沒有拉取請求匹配您的搜索。",
+            "Try a different search query.": "嘗試不同的搜索查詢。",
+            "Learn more about searching and filtering pull requests.": "瞭解更多關於搜索和過濾拉取請求的信息。",
+
+        // 視圖
+            "No saved views": "沒有保存的視圖",
+            "Change icon": "更改圖標",
+            "Apply": "應用",
+            "Title can not be empty": "標題不能為空",
+            "Query can not be empty": "查詢不能為空",
+            "Discard changes": "放棄更改",
+            "Are you sure you want to discard changes?": "您確定要放棄更改嗎？",
+            "Discard": "放棄",
+            "Saved view menu": "已保存視圖菜單",
+            "Saved view menu (update available)": "已保存視圖菜單（更新可用）",
+            "Update view with current query": "使用當前查詢更新視圖",
+    },
+    "regexp": [
+        ...I18N["zh-TW"]["issues"]["regexp"],
+        // 收件箱右上角
+        [/(\d+) 個倉庫 selected/, "已選擇 $1 個倉庫"],
+        [/Last month/, "上個月"],
+        [/Last 3 months/, "近 3 個月"],
+        [/Last year/, "去年"],
+        [/Any time/, "任意時間"],
+    ],
+}
+
 
 I18N["zh-TW"]["repos"] = {
     "static": {
@@ -27816,7 +27942,7 @@ I18N["zh-TW"]["repository/actions/metrics/performance"] = {
     },
     "regexp": [
         ...I18N["zh-TW"]["repo-actions-merics-public"]["regexp"],
-        [/(Average run time of|Average queue time of|Failure rate across|Total minutes used across failed) jobs in this organization for (current week \(mon-sun\)|current month|last month|last 30 days|last 90 days|last year|custom)/, function(all, type, period){
+        [/(Average run time of|Average queue time of|Failure rate across|Total minutes used across failed) jobs in this repository for (current week \(mon-sun\)|current month|last month|last 30 days|last 90 days|last year|custom)/, function(all, type, period){
             var typeKey = {'Average run time of': '平均運行時長', 'Average queue time of': '平均等待時長', 'Failure rate across': '作業失敗率', 'Total minutes used across failed': '作業失敗次數'};
             var periodKey = {
                 "current week (mon-sun)": "本週（週一 ~ 週日）",
@@ -27827,7 +27953,7 @@ I18N["zh-TW"]["repository/actions/metrics/performance"] = {
                 "last year": "最近一年",
                 "custom": "自定義時間段",
             };
-            return periodKey[period] + '該組織所有工作流程的' + typeKey[type];
+            return periodKey[period] + '該倉庫所有工作流程的' + typeKey[type];
         }],
         [/(\d+)h (\d+)m (\d+)s/, "$1時$2分$3秒"],
         [/(\d+)m (\d+)s/, "$1分$2秒"],
