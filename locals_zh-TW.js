@@ -2001,7 +2001,7 @@ I18N["zh-TW"]["orgs-public"] = { // 組織公共部分
 I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組織）
     "static": { // 靜態翻譯
         // 頂部 GPT 聊天窗口
-        "Ask anything": "詢問任何事",
+        "Ask anything or type @ to add context": "詢問任何問題或輸入 @ 來添加上下文",
         "Ask": "詢問",
         "Send": "發送",
         "Feedback": "反饋",
@@ -2044,6 +2044,8 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "Agent sessions to include": "智能體任務包含",
         "View all": "查看全部",
         "Number of results": "結果數量",
+        "Maximum age of results": "結果最大年齡",
+        "No maximum": "無限制",
         "Pull request options": "拉取請求選項",
         "Pull requests to include": "拉取請求包含",
             "Authored": "由您創建",
@@ -2054,7 +2056,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         "Issues to include": "議題包含",
             "Assigned to me": "分配給我",
             "Involves me": "涉及我",
-        "Open in Copilot chat": "在 Copilot Chat 中打開",
+        "Open in Copilot Chat": "在 Copilot Chat 中打開",
         "Assign to Copilot": "分配給 Copilot",
         "uses AI. Check for mistakes.": "使用 AI。請檢查錯誤。",
 
@@ -2200,6 +2202,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
         // 提要篩選
         "Filter": "篩選器",
             "Feed filters": "提要篩選器",
+            "Organization feed filters": "組織提要篩選器",
             "Events": "事件",
                 "Activity you want to see on your feed": "您想在提要上看到的活動",
             "Announcements": "公告",
@@ -2214,6 +2217,7 @@ I18N["zh-TW"]["page-dashboard"] = { // 已登錄的首頁 - 儀表板（含組�
                 "Repositories that are created or forked by people": "由人們創建或複刻的倉庫",
             "Repository activity": "倉庫活動",
                 "Issues and pull requests from repositories": "來自倉庫的議題和拉取請求",
+                "Issues, pull requests, and contributions from repositories": "來自倉庫的議題、拉取請求和貢獻",
             "Follows": "關注",
                 "Who people are following": "人們在關注誰",
             "Recommendations": "推薦",
@@ -10722,6 +10726,8 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "What's new": "新內容",
                 "Close merge status": "關閉",
             "Merge conflicts": "合併衝突",
+            "Not planning to merge?": "不打算合併嗎？",
+            "Awaiting approval": "等待批准",
 
             // 程式碼 下拉菜單
                 "Code 55% faster with AI pair programming.": "與 AI 一起編程，寫程式碼速度提高55%。",
@@ -11403,7 +11409,7 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
             "Review in codespace": "在程式碼空間中審查",
             // "Review changes": "審查更改", // 使用 Selector 規則翻譯
                 // 下拉
-                "Finish your review": "完成審查",
+                "Finish your": "完成您的",
                     "Submit general feedback without explicit approval.": "未批准，並提出一般性反饋意見。",
                 "Approve": "批准",
                     "Submit feedback approving these changes.": "批准，並提出反饋意見。",
@@ -11462,6 +11468,9 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
             // 大型拉取請求提示
             "This page has been optimized for large pull requests. Some browser features (like Find on Page or Select All) may not work as expected.": "此頁面已針對大型拉取請求進行了優化。某些瀏覽器功能（如頁面查找或全選）可能無法正常工作。",
                 "Switch to single file mode": "切換至單文件模式",
+            "Due to the size of this pull request, only one file can be shown at a time.": "由於此拉取請求的大小，一次只能顯示一個文件。",
+                "To view all files in a single page,": "要在單個頁面上查看所有文件，",
+                "try a new experimental mode": "請嘗試一種新的實驗模式",
 
             "These merge commits were added into this branch cleanly.": "這些合併提交已被幹淨利落地添加到該分支中。",
                 "There are no new changes to show.": "沒有任何新的變化。",
@@ -11523,9 +11532,12 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "Collapse file tree": "摺疊文件樹",
                 "Expand file tree": "展開文件樹",
 
+                "Select commits to view": "選擇要查看的提交",
                 "All changes": "所有更改",
                 "All commits": "所有提交",
                 "Changes since your last review": "自您上次審核以來的更改",
+                "No previous review found": "未找到之前的審核",
+                "Select a range of commits": "選擇一個提交範圍",
                 "Specific commit…": "特定提交…",
                     "Pick one or more commits": "選擇多個提交",
                     "Clear selection": "清除選擇",
@@ -11585,6 +11597,12 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
                 "Filter comments": "篩選評論",
                     "Show resolved comments": "顯示已解決評論",
                     "Show outdated comments": "顯示陳舊的評論",
+                    "Filter by": "篩選條件",
+                    "Hide resolved comments": "隱藏已解決評論",
+                    "Hide outdated comments": "隱藏陳舊的評論",
+                    "Jump to the comment in the diff": "跳轉到差異中的評論",
+                    "Showing": "顯示",
+                    "of": "條中的",
 
                 "No comments on changes yet": "還沒有評論",
                     "Comments will show up here as soon as there are some.": "評論將在此顯示。",
@@ -11705,6 +11723,7 @@ I18N["zh-TW"]["repository/pull"] = { // 倉庫 - 某個拉取請求頁面
     "regexp": [ // 正則翻譯
         [/The (\d+) commits? from this branch will be rebased and added to the base branch./, "該分支的 $1 次提交將變基並添加到基本分支。"],
         [/([^ ]+):([^ ]+)% was force-pushed and no longer has any new commits./, "$1:$2 分支被強制推送，現在沒有新的提交。"], // 放這裡是因為跟現有詞條衝突
+        [/(\d+) pending reviews?/, "$1 名待審者"],
         // 建議更改（詞條打架移動至此）
         [/on this commit as ([^@]+@[^\n]+)/, "該提交以 $1 身份"],
         // Dependabot 打開的拉取請求
@@ -20816,6 +20835,9 @@ I18N["zh-TW"]["notifications"] = { // 通知頁面
             "filter by notification reason": "按通知原因篩選",
             "filter by notification author": "按通知作者篩選",
             "filter by organization": "按組織篩選",
+        "Sort by:": "排序：",
+            "Newest to oldest": "從新到舊",
+            "Oldest to newest": "從舊到新",
         "Group by:": "分組：",
         "Group by: Date": "分組：日期",
         "Group by: Repository": "分組：倉庫",
@@ -21510,19 +21532,36 @@ I18N["zh-TW"]["pulls"] = { // 拉取請求頁面
     "static": {
         ...I18N["zh-TW"]["issues"]["static"],
 
-        // 預覽
+        // 上邊欄
             "What's new": "新功能",
             "Switch to the classic experience": "切換到經典視圖",
+            "Default view options": "默認視圖選項",
+            "Set as default view": "設為默認視圖",
+            "Default to this view when visiting /pulls": "訪問 /pulls 時默認使用此視圖",
 
-        // 側邊欄
-            "Inbox": "收件箱",
-                "Needs your review": "需要您的審查",
-                "Needs action": "需要操作",
-                "Ready to merge": "準備合併",
-                "All caught up": "全部已處理",
-                "When a pull request needs your review or attention, it'll appear here.": "當一個拉取請求需要您的審查或關注時，它將出現在這裡。",
-            "Authored by me": "由我創建",
-            "Involves me": "涉及我",
+        "Inbox": "收件箱",
+            "Needs your review": "需要您的審查",
+                "Expand Needs your review": "展開“需要您的審查”選項卡",
+                "Collapse Needs your review": "摺疊“需要您的審查”選項卡",
+                "Pull requests that need your review will appear here.": "需要您審查的拉取請求將出現在這裡。",
+            "Needs action": "需要操作",
+                "Expand Needs action": "展開“需要操作”選項卡",
+                "Collapse Needs action": "摺疊“需要操作”選項卡",
+                "Pull requests with failing checks, merge conflicts, or required changes will appear here.": "檢查失敗、存在合併衝突或需要更改的拉取請求將出現在這裡。",
+            "Ready to merge": "準備合併",
+                "Expand Ready to merge": "展開“準備合併”選項卡",
+                "Collapse Ready to merge": "摺疊“準備合併”選項卡",
+                "Pull requests that are ready to merge will appear here.": "準備合併的拉取請求將出現在這裡。",
+            "Needs your teams' review": "需要您團隊的審查",
+                "Expand Needs your teams' review": "展開“需要您團隊的審查”選項卡",
+                "Collapse Needs your teams' review": "摺疊“需要您團隊的審查”選項卡",
+                "Pull requests that need your teams' review will appear here.": "需要您團隊審查的拉取請求將出現在這裡。",
+            "All caught up": "全部已處理",
+            "When a pull request needs your review or attention, it'll appear here.": "當一個拉取請求需要您的審查或關注時，它將出現在這裡。",
+            "Awaiting approval": "等待批准",
+
+        "Authored by me": "由我創建",
+        "Involves me": "涉及我",
 
         // 收件箱右上角
             "Select repositories": "選擇倉庫",
