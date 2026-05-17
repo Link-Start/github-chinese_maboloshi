@@ -408,7 +408,7 @@
             const reason = pageType === false
                 ? '路徑未匹配任何頁面規則'
                 : `詞庫中缺少 "${pageType}" 的翻譯`;
-            console.warn(`[i18n] ${reason}`, {
+            console.warn('[i18n] %s', reason, {
                 url: window.location.href,
                 hostname,
                 pathname,
