@@ -8860,6 +8860,9 @@ I18N["zh-CN"]["repository"] = { // 仓库页面 /<user-name>/<repo-name>/
                 "You don't have any forks of this repository.": "您没有此仓库的任何复刻。",
                 "Create a new fork": "创建复刻",
 
+                // 复刻被锁
+                "Cannot fork because repository is locked.": "无法复刻，因为仓库被锁定。",
+
                 //
                 "Star this repository": "标星仓库", //小屏模式
                 "Unstar this repository": "取消仓库星标", //小屏模式
@@ -11318,6 +11321,9 @@ I18N["zh-CN"]["repository/pull"] = { // 仓库 - 某个拉取请求页面
                 "command line": "命令行",
                 "to resolve conflicts.": "来解决冲突。",
                 "These conflicts are too complex to resolve in the web editor": "这些冲突过于复杂，无法在网页编辑器中解决",
+
+                "Edit on the web": "在线编辑",
+                "Fix with Copilot": "使用 Copilot 修复",
             "Conflicting files": "冲突的文件:",
 
             "Require approval from specific reviewers before merging": "合并前需要特定审查者的批准",
