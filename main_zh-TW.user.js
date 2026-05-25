@@ -476,10 +476,15 @@
                         nodesToProcess.add(node);
                     }
                 });
-            } else if (type === 'attributes' ||
-                      (type === 'characterData' && State.pageConfig.characterData)) {
-                // 處理屬性或文本變化
-                if (!target.closest?.(State.pageConfig.ignoreMutationSelectors)) {
+            } else if (type === 'attributes') {
+                // 處理屬性變化，target 就是元素
+                if (target && !target.closest?.(State.pageConfig.ignoreMutationSelectors)) {
+                    nodesToProcess.add(target);
+                }
+            } else if (type === 'characterData' && State.pageConfig.characterData) {
+                // 處理文本變化，2target 是文本節點，取其父元素
+                const parent = target.parentElement;
+                if (parent && !parent.closest?.(State.pageConfig.ignoreMutationSelectors)) {
                     nodesToProcess.add(target);
                 }
             }
