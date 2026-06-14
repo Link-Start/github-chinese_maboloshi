@@ -8731,7 +8731,10 @@ I18N["zh-TW"]["page-new-repo"] = {// 儲存庫 - 新建/導入/復刻儲存庫
                     "Cancel and close": "關閉",
 
             "Jumpstart your project with Copilot (optional)": "用 Copilot 快速啟動您的專案（可選）",
-                "Tell Copilot what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "告訴 Copilot 您想在此儲存庫中構建什麼。在創建完成後，Copilot 會打開一個包含生成文件的合併請求（例如基礎應用、起始程式碼或您描述的其他功能），然後在準備好後請求您進行審核。",
+                // "Tell Copilot what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "告訴 Copilot 您想在此儲存庫中構建什麼。在創建完成後，Copilot 會打開一個包含生成文件的合併請求（例如基礎應用、起始程式碼或您描述的其他功能），然後在準備好後請求您進行審核。",
+                "Tell": "告訴",
+                    "Copilot cloud agent": "Copilot AI 代理",
+                    "what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "您想在此儲存庫中構建什麼。在創建完成後，Copilot 會打開一個包含生成文件的合併請求（例如基礎應用、起始程式碼或您描述的其他功能），然後在準備好後請求您進行審核。",
                 "About Copilot coding agent": "關於 Copilot 編程AI 代理",
 
                 "Prompt": "提示詞",
@@ -8750,6 +8753,7 @@ I18N["zh-TW"]["page-new-repo"] = {// 儲存庫 - 新建/導入/復刻儲存庫
         [/Auto-installed by ([^ ]+)/, "由 $1 自動安裝"],
         [/(\d+) apps? selected/, "已選擇 $1 個應用"],
         [/The repository ([^ ]+) already exists on this account/, "儲存庫 $1 已存在於此帳戶"],
+        [/([^ ]+) already exists in this account/, "$1 已存在於此帳戶"],
         ...I18N["zh-TW"]["repository-public"]["regexp"],
         // [/, and (\d+) more/, "，以及其他 $1 個組織"], // 用戶 浮動訊息卡
         // [/(\d+) repositor(y|ies)/, "$1 個儲存庫"], // 組織  浮動訊息卡
@@ -15144,6 +15148,12 @@ I18N["zh-TW"]["repository/releases"] = { // 儲存庫 - 發行版本頁面
             "Are you sure?": "您確定哇?",
             "This will delete the information for this draft.": "這將會刪除該草案的訊息。",
             "Delete this draft": "刪除草案",
+
+            "Release label": "發行版本標籤",
+                "None": "無",
+                "Label release as non-production ready": "標記為測試版",
+                "Label release as the latest for this repository": "標記為最新版",
+            "Additional settings": "附加設置",
 
             // 右側欄
             "Tagging suggestions": "標籤建議",
