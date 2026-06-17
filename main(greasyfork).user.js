@@ -4,14 +4,14 @@
 // @description  中文化 GitHub 界面的部分菜单及内容。原作者为楼教主(http://www.52cik.com/)。
 // @copyright    2021, 沙漠之子 (https://maboloshi.github.io/Blog)
 // @icon         https://github.githubassets.com/pinned-octocat.svg
-// @version      1.9.2.1-2026-05-21
+// @version      1.9.2.2-2026-05-21
 // @author       沙漠之子
 // @license      GPL-3.0
 // @match        https://github.com/*
 // @match        https://skills.github.com/*
 // @match        https://gist.github.com/*
 // @match        https://www.githubstatus.com/*
-// @require      https://greasyfork.org/scripts/435207-github-%E4%B8%AD%E6%96%87%E5%8C%96%E6%8F%92%E4%BB%B6-%E4%B8%AD%E6%96%87%E8%AF%8D%E5%BA%93%E8%A7%84%E5%88%99/code/GitHub%20%E4%B8%AD%E6%96%87%E5%8C%96%E6%8F%92%E4%BB%B6%20-%20%E4%B8%AD%E6%96%87%E8%AF%8D%E5%BA%93%E8%A7%84%E5%88%99.js?v1.9.2-2026-05-21
+// @require      https://greasyfork.org/scripts/435207-github-%E4%B8%AD%E6%96%87%E5%8C%96%E6%8F%92%E4%BB%B6-%E4%B8%AD%E6%96%87%E8%AF%8D%E5%BA%93%E8%A7%84%E5%88%99/code/GitHub%20%E4%B8%AD%E6%96%87%E5%8C%96%E6%8F%92%E4%BB%B6%20-%20%E4%B8%AD%E6%96%87%E8%AF%8D%E5%BA%93%E8%A7%84%E5%88%99.js?v1.9.2.2-2026-05-21
 // @run-at       document-end
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -29,6 +29,32 @@
     const lang = I18N.zh ? 'zh' : 'zh-CN'; // 设置默认语言
     let page;
     let enable_RegExp = GM_getValue("enable_RegExp", 1);
+
+    function getElementFromNode(node) {
+        if (!node) return null;
+        return node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+    }
+
+    function getIgnoreMutationSelectors() {
+        const selectorPage = I18N.conf.ignoreMutationSelectorPage || {};
+        return [
+            ...(selectorPage['*'] || []),
+            ...((page && selectorPage[page]) || []),
+        ].join(', ');
+    }
+
+    function shouldIgnoreMutation(mutation, ignoreMutationSelectors) {
+        if (!ignoreMutationSelectors) return false;
+
+        const target = getElementFromNode(mutation.target);
+        if (target?.closest?.(ignoreMutationSelectors)) return true;
+
+        return Array.from(mutation.addedNodes || []).some(node => {
+            const element = getElementFromNode(node);
+            return element?.matches?.(ignoreMutationSelectors) ||
+                element?.closest?.(ignoreMutationSelectors);
+        });
+    }
 
     /**
      * watchUpdate 函数：监视页面变化，根据变化的节点进行翻译
@@ -72,7 +98,11 @@
             if (page) {
                 // 使用 filter 方法对 mutations 数组进行筛选，
                 // 返回 `节点增加、文本更新 或 属性更改的 mutation` 组成的新数组 filteredMutations。
-                const filteredMutations = mutations.filter(mutation => mutation.addedNodes.length > 0 || mutation.type === 'attributes' || mutation.type === 'characterData');
+                const ignoreMutationSelectors = getIgnoreMutationSelectors();
+                const filteredMutations = mutations.filter(mutation =>
+                    !shouldIgnoreMutation(mutation, ignoreMutationSelectors) &&
+                    (mutation.addedNodes.length > 0 || mutation.type === 'attributes' || mutation.type === 'characterData')
+                );
 
                 // 处理每个变化
                 filteredMutations.forEach(mutation => traverseNode(mutation.target));
