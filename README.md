@@ -347,11 +347,11 @@ GitHub 的 ajax 载入方式逐步从 [defunkt/jquery-pjax](https://github.com/d
 <a href="https://github.com/tangyuan0821" title="Paper Moon">
   <img src="https://avatars.githubusercontent.com/u/195516213?v=4" width="42;" alt="Paper Moon"/>
 </a>
-<a href="https://github.com/pylover7" title="大叶子">
-  <img src="https://avatars.githubusercontent.com/u/56282729?v=4" width="42;" alt="大叶子"/>
-</a>
 <a href="https://github.com/cat-kun" title="cat-kun">
   <img src="https://avatars.githubusercontent.com/u/8529528?v=4" width="42;" alt="cat-kun"/>
+</a>
+<a href="https://github.com/pylover7" title="大叶子">
+  <img src="https://avatars.githubusercontent.com/u/56282729?v=4" width="42;" alt="大叶子"/>
 </a>
 <a href="https://github.com/Kisechan" title="Kise Platinyl">
   <img src="https://avatars.githubusercontent.com/u/162338950?v=4" width="42;" alt="Kise Platinyl"/>
@@ -370,6 +370,9 @@ GitHub 的 ajax 载入方式逐步从 [defunkt/jquery-pjax](https://github.com/d
 </a>
 <a href="https://github.com/PtJade-Ceramic" title="PtJade Ceramic">
   <img src="https://avatars.githubusercontent.com/u/185668489?v=4" width="42;" alt="PtJade Ceramic"/>
+</a>
+<a href="https://github.com/MasterBao66" title="Mr.Baoboer">
+  <img src="https://avatars.githubusercontent.com/u/272576744?v=4" width="42;" alt="Mr.Baoboer"/>
 </a>
 <a href="https://github.com/wang93wei" title="AlanWang">
   <img src="https://avatars.githubusercontent.com/u/6371053?v=4" width="42;" alt="AlanWang"/>
@@ -430,9 +433,6 @@ GitHub 的 ajax 载入方式逐步从 [defunkt/jquery-pjax](https://github.com/d
 </a>
 <a href="https://github.com/neveler" title="neveler">
   <img src="https://avatars.githubusercontent.com/u/55753029?v=4" width="42;" alt="neveler"/>
-</a>
-<a href="https://github.com/Aethersailor" title="Aethersailor">
-  <img src="https://avatars.githubusercontent.com/u/22260104?v=4" width="42;" alt="Aethersailor"/>
 </a>
 <!--AUTO_GENERATED_PLEASE_DONT_DELETE_IT-END-->
 
