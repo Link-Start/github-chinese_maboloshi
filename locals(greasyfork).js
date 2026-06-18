@@ -105,10 +105,6 @@ I18N.conf = {
             '.cm-line',
         ],
         '*': [
-            'header.GlobalNav', // React 版全局导航
-            'header.GlobalNav [class*="Search-module__"]', // React 版顶部搜索按钮
-            'qbsearch-input', // 顶部搜索框自定义元素
-            '#__primerPortalRoot__', // React 弹层挂载点
             'div.QueryBuilder-StyledInputContainer', // 顶部搜索栏 关键词
             '#qb-input-query span', // 搜索页面 搜索栏 关键词
 			'div.styled-input-content', // 筛选条
@@ -233,10 +229,6 @@ I18N.conf = {
             '.monaco-editor',
         ],
         '*': [
-            'header.GlobalNav', // React 版全局导航
-            'header.GlobalNav [class*="Search-module__"]', // React 版顶部搜索按钮
-            'qbsearch-input', // 顶部搜索框自定义元素
-            '#__primerPortalRoot__', // React 弹层挂载点
             '.comment-body', '.js-preview-body',
             '.markdown-title',
             'span.ActionListItem-descriptionWrap',  // 顶部搜索栏 关键词
@@ -279,7 +271,7 @@ I18N.conf = {
      * tree 视图 文件名 react-directory-filename-column 提交信息 react-directory-commit-message
      * 代码差异页面 代码 pl-s1|pl-smi|pl-token|pl-c1|pl-kos|pl-k|pl-c|pl-en
      */
-    reIgnoreClass: /(GlobalNav|QueryBuilder|cm-line|ͼ.*|pl-s1|pl-smi|pl-token|pl-c1|pl-kos|pl-k|pl-c|pl-en|CodeMirror|blob-code|highlight-.*|repo-and-owner|js-path-segment|final-path|files js-navigation-container|js-comment-body|js-preview-body|comment-form-textarea|markdown-title|js-tree-finder-virtual-filter|js-navigation-open Link--primary|js-modifier-key|capped-list-label|blob-code blob-code-inner js-file-line|markdown-body my-3|f4 my-3|commit-author$|search-match|react-directory-filename-column|react-directory-commit-message|react-code-text|zausi)/,
+    reIgnoreClass: /(cm-line|ͼ.*|pl-s1|pl-smi|pl-token|pl-c1|pl-kos|pl-k|pl-c|pl-en|CodeMirror|blob-code|highlight-.*|repo-and-owner|js-path-segment|final-path|files js-navigation-container|js-comment-body|js-preview-body|comment-form-textarea|markdown-title|js-tree-finder-virtual-filter|js-navigation-open Link--primary|js-modifier-key|capped-list-label|blob-code blob-code-inner js-file-line|markdown-body my-3|f4 my-3|commit-author$|search-match|react-directory-filename-column|react-directory-commit-message|react-code-text|zausi)/,
 
     /**
      * 忽略区域的 itemprop 属性正则
@@ -295,332 +287,17 @@ I18N.conf = {
      * /blob页面 右侧 符号筛选 filter-results
      * fix repo详情页文件路径breadcrumb
      */
-    reIgnoreId: /(__primerPortalRoot__|search-suggestions-dialog|readme|^offset|breadcrumb|file-name-id|filter-results)/,
+    reIgnoreId: /(readme|^offset|breadcrumb|file-name-id|filter-results)/,
 
     /**
      * 忽略区域的 标签 正则
      * /i 规则不区分大小写
      */
-    reIgnoreTag: ['CODE', 'SCRIPT', 'STYLE', 'LINK', 'IMG', 'MARKED-TEXT', 'PRE', 'KBD', 'QBSEARCH-INPUT'],
+    reIgnoreTag: ['CODE', 'SCRIPT', 'STYLE', 'LINK', 'IMG', 'MARKED-TEXT', 'PRE', 'KBD'],
     // marked-text --> 文件搜索模式/<user-name>/<repo-name>/find/<branch> 文件列表条目
     // ^script$ --> 避免勿过滤 notifications-list-subscription-form
     // ^pre$ --> 避免勿过滤
 };
-
-(function setupReactGlobalNavTranslation() {
-    if (typeof document === 'undefined' || typeof window === 'undefined') return;
-
-    const labels = {
-        "Overview": "概况",
-        "Repositories": "仓库",
-        "Code": "代码",
-        "Issues": "议题",
-        "Pull requests": "拉取请求",
-        "Discussions": "讨论",
-        "Actions": "操作",
-        "Projects": "项目",
-        "Wiki": "Wiki",
-        "Security": "安全",
-        "Security and quality": "安全和质量",
-        "Insights": "洞察",
-        "Settings": "设置",
-        "Packages": "软件包",
-        "Releases": "发行版",
-        "Stars": "星标",
-        "Agents": "智能体",
-        "Models": "模型",
-        "Set status": "状态设置",
-        "Profile": "个人资料",
-        "Gists": "代码片段",
-        "Copilot settings": "Copilot 设置",
-        "Feature preview": "功能预览",
-        "Appearance": "外观",
-        "Accessibility": "无障碍",
-        "Try Enterprise": "试用企业版",
-        "Sign out": "退出",
-        "Free": "免费",
-        "Type / to search": "输入 / 搜索",
-        "Search code, repositories, users, issues, pull requests...": "搜索代码、仓库、用户、议题、拉取请求...",
-        "Search": "搜索",
-        "Clear": "清除",
-        "Search syntax tips": "搜索语法提示",
-        "Give feedback": "反馈",
-        "Saved searches": "保存搜索",
-        "Use saved searches to filter your results more quickly": "使用保存的搜索快速筛选结果",
-        "Create saved search": "创建保存的搜索",
-        "Provide feedback": "提供反馈",
-        "Submit feedback": "提交反馈",
-        "Cancel": "取消",
-        "Name": "名称",
-        "Query": "查询",
-        "0 suggestions.": "0 条建议。",
-        "To see all available qualifiers, see our documentation.": "要查看所有可用限定符，请参阅文档。",
-        "People": "成员",
-        "Teams": "团队",
-        "Sponsoring": "赞助",
-        "Followers": "关注者",
-        "Following": "正在关注",
-        "Activity": "活动",
-        "Branches": "分支",
-        "Tags": "标签",
-        "Codespaces": "代码空间",
-        "Dashboard": "仪表板",
-        "Explore": "探索",
-        "Marketplace": "市场",
-        "Sponsors": "赞助者",
-        "Organizations": "组织",
-        "Enterprises": "企业版",
-        "Billing": "账单",
-        "Copilot": "GitHub Copilot",
-    };
-
-    const dataContentLabelSelector = 'header.GlobalNav [data-component="text"][data-content]';
-    const controlledSurfaceSelector = [
-        'header.GlobalNav',
-        '#__primerPortalRoot__ [role="menu"]',
-        '#__primerPortalRoot__ [role="dialog"]',
-        '#__primerPortalRoot__ [role="tooltip"]',
-    ].join(', ');
-    const portalSurfaceSelector = '#__primerPortalRoot__ [role="menu"], #__primerPortalRoot__ [role="dialog"], #__primerPortalRoot__ [role="tooltip"]';
-    const searchSurfaceSelector = 'qbsearch-input';
-    const searchModuleSelector = 'header.GlobalNav [class*="Search-module__"]';
-    const unsafeTextSelector = [
-        'textarea',
-        '[contenteditable="true"]',
-        'code',
-        'pre',
-        'kbd',
-        'svg',
-        'img',
-        'canvas',
-        'video',
-    ].join(', ');
-    const searchSelector = `${searchModuleSelector}, ${searchSurfaceSelector}, #__primerPortalRoot__ [role="dialog"]`;
-    const translatableAttributeNames = ['title', 'aria-label', 'data-visible-text', 'placeholder'];
-    const reactGlobalNavIdleMs = 700;
-    const reactGlobalNavRetryMs = 400;
-    let timer = null;
-    let headerObserver = null;
-    let lastReactGlobalNavMutationAt = Date.now();
-    let lastReactGlobalNavPortalMutationAt = Date.now();
-    const observedSurfaces = new WeakSet();
-
-    function isReactGlobalNavSearchActive() {
-        const active = document.activeElement;
-        return !!active?.closest?.(searchSelector)
-            || !!document.querySelector('#__primerPortalRoot__ [role="dialog"]');
-    }
-
-    function isReactGlobalNavSurfaceIdle(surfaceType = 'header') {
-        const lastMutationAt = surfaceType === 'portal'
-            ? lastReactGlobalNavPortalMutationAt
-            : lastReactGlobalNavMutationAt;
-        return Date.now() - lastMutationAt >= reactGlobalNavIdleMs;
-    }
-
-    function canTranslateReactGlobalNavHeader() {
-        return document.readyState === 'complete'
-            && isReactGlobalNavSurfaceIdle('header')
-            && !isReactGlobalNavSearchActive();
-    }
-
-    function findStaticGlobalNavLabel(source) {
-        const locale = I18N["zh-CN"] || I18N.zh;
-        if (!locale) return null;
-
-        for (const section of Object.values(locale)) {
-            const label = section?.static?.[source];
-            if (typeof label === 'string' && label && label !== source) {
-                return label;
-            }
-        }
-
-        return null;
-    }
-
-    function findRegexpGlobalNavLabel(source) {
-        const locale = I18N["zh-CN"] || I18N.zh;
-        if (!locale) return null;
-
-        for (const section of Object.values(locale)) {
-            for (const [pattern, replacement] of section?.regexp || []) {
-                const label = source.replace(pattern, replacement);
-                if (label !== source) return label;
-            }
-        }
-
-        return null;
-    }
-
-    function resolveReactGlobalNavLabel(source) {
-        return labels[source] || findStaticGlobalNavLabel(source) || findRegexpGlobalNavLabel(source);
-    }
-
-    function normalizeReactGlobalNavText(text) {
-        return text?.replace(/\s+/g, ' ').trim();
-    }
-
-    function translateReactGlobalNavText(text) {
-        const source = normalizeReactGlobalNavText(text);
-        return source ? resolveReactGlobalNavLabel(source) : null;
-    }
-
-    function translateReactGlobalNavElement(element, source) {
-        const label = translateReactGlobalNavText(source ?? element.textContent);
-        if (label && element.textContent !== label) {
-            element.textContent = label;
-        }
-    }
-
-    function shouldSkipReactGlobalNavNode(node) {
-        const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
-        if (!element) return true;
-        if (element.closest?.(unsafeTextSelector)) return true;
-        if (element.closest?.(searchModuleSelector)) return true;
-        if (element.closest?.(searchSurfaceSelector)) return true;
-
-        return false;
-    }
-
-    function translateReactGlobalNavAttributes(element) {
-        translatableAttributeNames.forEach(attributeName => {
-            const value = element.getAttribute?.(attributeName);
-            const label = translateReactGlobalNavText(value);
-            if (label && value !== label) {
-                element.setAttribute(attributeName, label);
-            }
-        });
-    }
-
-    function translateReactGlobalNavTextNode(node) {
-        const label = translateReactGlobalNavText(node.data);
-        if (label) {
-            node.data = node.data.replace(node.data.trim(), label);
-        }
-    }
-
-    function translateReactGlobalNavSurface(surface) {
-        if (!surface || shouldSkipReactGlobalNavNode(surface)) return;
-
-        if (surface.nodeType === Node.ELEMENT_NODE) {
-            translateReactGlobalNavAttributes(surface);
-        }
-
-        const walker = document.createTreeWalker(
-            surface,
-            NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
-            {
-                acceptNode(node) {
-                    return shouldSkipReactGlobalNavNode(node)
-                        ? NodeFilter.FILTER_REJECT
-                        : NodeFilter.FILTER_ACCEPT;
-                }
-            }
-        );
-
-        let node;
-        while ((node = walker.nextNode())) {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-                translateReactGlobalNavAttributes(node);
-            } else if (node.nodeType === Node.TEXT_NODE) {
-                translateReactGlobalNavTextNode(node);
-            }
-        }
-    }
-
-    function translateReactGlobalNavHeader() {
-        const header = document.querySelector('header.GlobalNav');
-        if (!header) return true;
-        if (!canTranslateReactGlobalNavHeader()) return false;
-
-        document.querySelectorAll(dataContentLabelSelector).forEach(element => {
-            if (!shouldSkipReactGlobalNavNode(element)) {
-                translateReactGlobalNavElement(element, element.getAttribute('data-content'));
-            }
-        });
-        translateReactGlobalNavSurface(header);
-
-        return true;
-    }
-
-    function translateReactGlobalNavPortals() {
-        const surfaces = Array.from(document.querySelectorAll(portalSurfaceSelector));
-        if (!surfaces.length) return true;
-        if (!isReactGlobalNavSurfaceIdle('portal')) return false;
-
-        surfaces.forEach(translateReactGlobalNavSurface);
-
-        return true;
-    }
-
-    function translateReactGlobalNavLabels(options = { requireSettledHeader: true }) {
-        observeReactGlobalNav();
-
-        const headerTranslated = translateReactGlobalNavHeader();
-        const portalsTranslated = translateReactGlobalNavPortals();
-
-        if ((options.requireSettledHeader && !headerTranslated) || !portalsTranslated) {
-            scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, options);
-        }
-    }
-
-    function scheduleReactGlobalNavTranslation(delay = 800, options = {}) {
-        window.clearTimeout(timer);
-        timer = window.setTimeout(() => translateReactGlobalNavLabels(options), delay);
-    }
-
-    function scheduleReactGlobalNavSeries() {
-        [800, 1600, 3000].forEach(delay => {
-            window.setTimeout(translateReactGlobalNavLabels, delay);
-        });
-    }
-
-    function recordReactGlobalNavMutation(surface) {
-        if (surface?.id === '__primerPortalRoot__' || surface?.closest?.('#__primerPortalRoot__')) {
-            lastReactGlobalNavPortalMutationAt = Date.now();
-            return;
-        }
-
-        lastReactGlobalNavMutationAt = Date.now();
-    }
-
-    function observeReactGlobalNav() {
-        if (!headerObserver) {
-            headerObserver = new MutationObserver(mutations => {
-                mutations.forEach(mutation => recordReactGlobalNavMutation(mutation.target));
-                scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, { requireSettledHeader: true });
-            });
-        }
-
-        [
-            document.querySelector('header.GlobalNav'),
-            document.querySelector('#__primerPortalRoot__'),
-        ].forEach(surface => {
-            if (!surface || observedSurfaces.has(surface)) return;
-
-            observedSurfaces.add(surface);
-            recordReactGlobalNavMutation(surface);
-            headerObserver.observe(surface, {
-                childList: true,
-                subtree: true,
-                characterData: true,
-            });
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', scheduleReactGlobalNavSeries, { once: true });
-    } else {
-        scheduleReactGlobalNavSeries();
-    }
-
-    window.addEventListener('turbo:load', scheduleReactGlobalNavSeries);
-    window.addEventListener('urlchange', scheduleReactGlobalNavSeries);
-    document.addEventListener('click', () => scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, { requireSettledHeader: true }), true);
-    document.addEventListener('focusin', () => scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, { requireSettledHeader: true }), true);
-    document.addEventListener('focusout', () => scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, { requireSettledHeader: true }), true);
-    document.addEventListener('pointerover', () => scheduleReactGlobalNavTranslation(reactGlobalNavRetryMs, { requireSettledHeader: true }), true);
-})();
 
 I18N["zh-CN"] = {};
 
@@ -9054,7 +8731,10 @@ I18N["zh-CN"]["page-new-repo"] = {// 仓库 - 新建/导入/复刻仓库
                     "Cancel and close": "关闭",
 
             "Jumpstart your project with Copilot (optional)": "用 Copilot 快速启动您的项目（可选）",
-                "Tell Copilot what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "告诉 Copilot 您想在此仓库中构建什么。在创建完成后，Copilot 会打开一个包含生成文件的拉取请求（例如基础应用、起始代码或您描述的其他功能），然后在准备好后请求您进行审核。",
+                // "Tell Copilot what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "告诉 Copilot 您想在此仓库中构建什么。在创建完成后，Copilot 会打开一个包含生成文件的拉取请求（例如基础应用、起始代码或您描述的其他功能），然后在准备好后请求您进行审核。",
+                "Tell": "告诉",
+                    "Copilot cloud agent": "Copilot 智能体",
+                    "what you want to build in this repository. After creation, Copilot will open a pull request with generated files - such as a basic app, starter code, or other features you describe - then request your review when it's ready.": "您想在此仓库中构建什么。在创建完成后，Copilot 会打开一个包含生成文件的拉取请求（例如基础应用、起始代码或您描述的其他功能），然后在准备好后请求您进行审核。",
                 "About Copilot coding agent": "关于 Copilot 编程智能体",
 
                 "Prompt": "提示词",
@@ -9073,6 +8753,7 @@ I18N["zh-CN"]["page-new-repo"] = {// 仓库 - 新建/导入/复刻仓库
         [/Auto-installed by ([^ ]+)/, "由 $1 自动安装"],
         [/(\d+) apps? selected/, "已选择 $1 个应用"],
         [/The repository ([^ ]+) already exists on this account/, "仓库 $1 已存在于此账户"],
+        [/([^ ]+) already exists in this account/, "$1 已存在于此账户"],
         ...I18N["zh-CN"]["repository-public"]["regexp"],
         // [/, and (\d+) more/, "，以及其他 $1 个组织"], // 用户 浮动信息卡
         // [/(\d+) repositor(y|ies)/, "$1 个仓库"], // 组织  浮动信息卡
@@ -15467,6 +15148,12 @@ I18N["zh-CN"]["repository/releases"] = { // 仓库 - 发行版页面
             "Are you sure?": "您确定哇?",
             "This will delete the information for this draft.": "这将会删除该草案的信息。",
             "Delete this draft": "删除草案",
+
+            "Release label": "发行版标签",
+                "None": "无",
+                "Label release as non-production ready": "标记为测试版",
+                "Label release as the latest for this repository": "标记为最新版",
+            "Additional settings": "附加设置",
 
             // 右侧栏
             "Tagging suggestions": "标签建议",
