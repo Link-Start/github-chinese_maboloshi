@@ -1,76 +1,69 @@
 #!/bin/bash
 
-while getopts ":T:R:B:P:F:D:h:b:" opt; do
+while getopts ":T:A:R:B:P:F:D:h:b:" opt; do
     case $opt in
         T)
             # 通过 GitHub GraphQL API 进行身份验证的 TOKEN
             # TOKEN for authentication via the GitHub GraphQL API
-            TOKEN=$OPTARG
-            ;;
+            TOKEN="$OPTARG" ;;
+        A)
+            # 自定义 GraphQL API 端点
+            # Customize GraphQL API endpoints
+            GRAPHQL_API_URL="$OPTARG" ;;
         R)
             # GitHub GraphQL API 请求带有所有者的远程仓库名称
             # Remote repository name with owner requested by the GitHub GraphQL API
-            repoNwo=$OPTARG
-            ;;
+            repoNwo="$OPTARG" ;;
         B)
             # GitHub GraphQL API 请求的远程仓库目标分支名称
             # The name of the target branch of the remote repository requested by the GitHub GraphQL API
-            branch=$OPTARG
-            ;;
+            branch="$OPTARG" ;;
         P)
             # 远程仓库目标分支上最后一次提交的 SHA。
             # 它也是即将创建的提交的父提交的 SHA。
             # The SHA of the last commit on the target branch of the remote repository.
             # It is also the SHA of the parent commit of the commit about to be created.
-            parentSHA=$OPTARG
-            ;;
+            parentSHA="$OPTARG" ;;
         F)
             # 通过 GitHub GraphQL API 提交, 新增或修改的文件的路径（相对于存储库根）的数组
             # Array of paths (relative to the repository root) to new or modified files for commits via the GitHub GraphQL API
-            IFS=', ' read -ra changed_files <<< "${OPTARG:-}"
+            #
             # 使用逗号和或空格作为分隔符，将参数分割为数组，默认值为空字符串
             # Split parameters into arrays using commas and or spaces as separators, defaults to empty string
-            ;;
+            IFS=', ' read -ra changed_files <<< "$OPTARG" ;;
         D)
             # 通过 GitHub GraphQL API 提交, 删除的文件的路径（相对于存储库根）的数组
             # Array of paths (relative to the repository root) to deleted files for commits via the GitHub GraphQL API
-            IFS=', ' read -ra deleted_files <<< "${OPTARG:-}"
-            ;;
+            IFS=', ' read -ra deleted_files <<< "$OPTARG" ;;
         h)
             # 通过 GitHub GraphQL API 提交的提交消息标题行
             # Commit message head line committed via GitHub GraphQL API
-            message_headline=$OPTARG
-            ;;
+            message_headline="$OPTARG" ;;
         b)
             # 通过 GitHub GraphQL API 提交的提交消息正文
             # Commit message body committed via GitHub GraphQL API
-            message_body=$OPTARG
-            ;;
+            message_body="$OPTARG" ;;
         \?)
-           echo "无效的选项: -$OPTARG" >&2
-           exit 1
-           ;;
+           echo "无效的选项: -$OPTARG" >&2; exit 1 ;;
     esac
 done
 
-if [[ -z $TOKEN ]]; then
-  TOKEN=$GITHUB_TOKEN
-fi
 
-if [[ -z $GITHUB_API_URL ]]; then
-  GITHUB_API_URL="https://api.github.com"
-fi
+export GITHUB_TOKEN="${TOKEN:-$GITHUB_TOKEN}"
+# export GITHUB_API_URL="${GITHUB_API_URL:-$GITHUB_API_URL}"
+export GITHUB_GRAPHQL_URL="${GRAPHQL_API_URL:-$GITHUB_GRAPHQL_URL}"
 
-function set_dco_signature {
-    if [[ $TOKEN == ghp_* ]]; then
+# 生成签名（兼容 PAT 和 GitHub Actions）
+signature() {
+    if [[ $GITHUB_TOKEN == ghp_* ]]; then
         # https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/
         # 'ghp_'开头的是 GitHub 个人访问令牌
         # What starts with 'ghp_' is the GitHub personal access token
 
-        res=$(curl -s -H "Authorization: token $TOKEN" "$GITHUB_API_URL/user" 2>/dev/null || echo '{"login":"gh-actions","id":0}')
+        res=$(gh api /user 2>/dev/null || echo '{"login":"gh-actions","id":0}')
     else
         bot="${APP_SLUG:-github-actions}[bot]"
-        res=$(curl -sg -H "Authorization: token $TOKEN" "$GITHUB_API_URL/users/${bot}" 2>/dev/null || echo '{"login":"gh-actions","id":0}')
+        res=$(gh api "/users/${bot}" 2>/dev/null || echo '{"login":"gh-actions","id":0}')
     fi
 
     login=$(jq -r .login <<< "$res")
@@ -79,7 +72,7 @@ function set_dco_signature {
     echo "Signed-off-by: ${name:-$login} <$id+$login@users.noreply.github.com>"
 }
 
-message_body="${message_body:+$message_body\n}$(set_dco_signature)"
+message_body="${message_body:+$message_body\n}$(signature)"
 
 # 处理文件修改并构建 fileChanges 部分中 additions 的 JSON 字符串
 # Process the file changes and build the JSON string of `additions` in the `fileChanges` section
@@ -142,23 +135,7 @@ graphql_request='{
   }
 }'
 
-# 将请求数据写入 request.json 文件
-# Write the request data to the `request.json` file
-echo "$graphql_request" > request.json
-
-# 发送 GraphQL 请求并解析结果
-# Send GraphQL requests and parse the results
-if [[ -z $GITHUB_GRAPHQL_URL ]]; then
-  GITHUB_GRAPHQL_URL="https://api.github.com/graphql"
-fi
-
-response=$(curl "$GITHUB_GRAPHQL_URL" --silent \
-  --write-out '%{stderr}HTTP status: %{response_code}\n\n' \
-  -H "Authorization: bearer $TOKEN" \
-  --data @request.json)
-
-# Print the results
-jq -r '
+echo "$graphql_request" | gh api graphql --input - | jq -r '
     if .data?.createCommitOnBranch?.commit?.url then
         "✅ 请求成功，SHA: \(.data.createCommitOnBranch.commit.oid)\nURL: \(.data.createCommitOnBranch.commit.url)"
     else
@@ -167,4 +144,4 @@ jq -r '
         else
             "⚠️ 未知响应格式: \(.)"
         end
-    end' <<< "$response"
+    end'
