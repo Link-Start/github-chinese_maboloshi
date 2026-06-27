@@ -54,6 +54,7 @@ export GITHUB_TOKEN="${TOKEN:-$GITHUB_TOKEN}"
 export GITHUB_GRAPHQL_URL="${GRAPHQL_API_URL:-$GITHUB_GRAPHQL_URL}"
 
 # 生成签名（兼容 PAT 和 GitHub Actions）
+# Generate Signature (Compatible with PAT and GitHub Actions)
 signature() {
     if [[ $GITHUB_TOKEN == ghp_* ]]; then
         # https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/
@@ -74,66 +75,59 @@ signature() {
 
 message_body="${message_body:+$message_body\n}$(signature)"
 
-# 处理文件修改并构建 fileChanges 部分中 additions 的 JSON 字符串
-# Process the file changes and build the JSON string of `additions` in the `fileChanges` section
-changed_files_json=""
+# 处理文件修改并构建 fileChanges.additions 数组（用 jq）
+# Process file modifications and build the fileChanges.additions array (using jq)
+additions_json='[]'
 for file_path in "${changed_files[@]}"; do
-    changed_files_json+="{
-            \"path\": \"$file_path\",
-            \"contents\": \"$(base64 < "$file_path")\"
-          },
-          "
+    # 获取文件内容的 base64 编码（强制单行）
+    contents=$(base64 -w0 < "$file_path" 2>/dev/null || base64 < "$file_path" | tr -d '\n')
+    # 使用 jq 追加数组元素，自动转义 path 和 contents
+    additions_json=$(echo "$additions_json" | jq --arg path "$file_path" --arg content "$contents" \
+        '. + [{"path": $path, "contents": $content}]')
 done
-changed_files_json="${changed_files_json%,
-          }"  # 移除最后一个逗号及换行符和空格
-              # Remove last comma and line breaks and spaces
 
-# 处理文件删除并构建 fileChanges 部分中 deletions 的 JSON 字符串
-# Process the file deletions and build the JSON string of `deletions` in the `fileChanges` section
-deleted_files_json=""
+# 处理文件删除并构建 fileChanges.deletions 数组（用 jq）
+# Process file deletion and build the fileChanges.deletions array (using jq)
+deletions_json='[]'
 for file_path in "${deleted_files[@]}"; do
-    deleted_files_json+="{
-            \"path\": \"$file_path\",
-          },
-          "
+    deletions_json=$(echo "$deletions_json" | jq --arg path "$file_path" \
+        '. + [{"path": $path}]')
 done
-deleted_files_json="${deleted_files_json%,
-          }"  # 移除最后一个逗号及换行符和空格
-              # Remove last comma and line breaks and spaces
 
-# 构建 GraphQL 请求的 JSON 字符串
-# Construct JSON string for GraphQL request
-graphql_request='{
-  "query": "mutation ($input: CreateCommitOnBranchInput!) {
-    createCommitOnBranch(input: $input) {
-      commit {
-        oid,
-        url
-      }
-    }
-  }",
-  "variables": {
-    "input": {
-      "branch": {
-        "repositoryNameWithOwner": "'"$repoNwo"'",
-        "branchName": "'"$branch"'"
-      },
-      "message": {
-        "headline": "'"$message_headline"'",
-        "body": "'"$message_body"'"
-      },
-      "fileChanges": {
-        "additions": [
-          '"$changed_files_json"'
-        ],
-        "deletions": [
-          '"$deleted_files_json"'
-        ]
-      },
-      "expectedHeadOid": "'"$parentSHA"'"
-    }
-  }
-}'
+# 使用 jq 生成完整的 GraphQL 请求 JSON
+graphql_request=$(jq -n \
+    --arg query 'mutation ($input: CreateCommitOnBranchInput!) {
+        createCommitOnBranch(input: $input) {
+            commit { oid, url }
+        }
+    }' \
+    --arg repo "$repoNwo" \
+    --arg branch "$branch" \
+    --arg headline "$message_headline" \
+    --arg body "$message_body" \
+    --arg parent "$parentSHA" \
+    --argjson additions "$additions_json" \
+    --argjson deletions "$deletions_json" \
+    '{
+        query: $query,
+        variables: {
+            input: {
+                branch: {
+                    repositoryNameWithOwner: $repo,
+                    branchName: $branch
+                },
+                message: {
+                    headline: $headline,
+                    body: $body
+                },
+                fileChanges: {
+                    additions: $additions,
+                    deletions: $deletions
+                },
+                expectedHeadOid: $parent
+            }
+        }
+    }')
 
 echo "$graphql_request" | gh api graphql --input - | jq -r '
     if .data?.createCommitOnBranch?.commit?.url then
