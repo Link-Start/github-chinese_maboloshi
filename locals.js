@@ -2580,7 +2580,7 @@ I18N["zh-CN"]["page-profile-public"] = { // 个人首页（含组织）
             "security advisory credits": "个安全咨询分",
             "security advisory credit": "个安全咨询分",
             "Organizations": "组织",
-            "Block or Report": "拉黑或举报",
+            "Block or Report user": "拉黑或举报",
             "Unblock or report user": "取消拉黑或举报",
             "- same time": "- 时间相同",
 
@@ -10631,6 +10631,10 @@ I18N["zh-CN"]["repository/issues"] = { // 仓库 - 议题页面
             "remaining": "剩余",
             "items": "项",
             "Load more": "载入更多",
+                // 右侧菜单
+                "Load more actions": "更多选项",
+                    "Load older activity": "加载更旧活动",
+                    "Load newer activity": "加载更新活动",
 
             "This conversation has been locked and limited to collaborators.": "此对话已锁定并限制与协作者对话。",
             "This issue has been deleted.": "该议题已被删除。",
@@ -14321,6 +14325,10 @@ I18N["zh-CN"]["repository/new"] = { // 仓库 - 新建/编辑/上传/删除文�
                         "Go to folder": "转到文件夹",
                         "See all results": "查看所有结果",
 
+            // 文件编码非 UTF-8
+            "We’ve detected the file encoding as": "检测到此文件编码为",
+                ". When you commit changes we will transcode it to": "。提交时将转码成",
+
             "Name your file...": "文件名…",
             "in": "在",
 
@@ -14385,7 +14393,8 @@ I18N["zh-CN"]["repository/new"] = { // 仓库 - 新建/编辑/上传/删除文�
 
                     "Create a": "创建",
                     "new branch": "新分支",
-                    "for this commit and start a pull request": "为这个提交，并且发起一个拉取请求",
+                    "for this commit": "为这个提交，",
+                    "and start a pull request": "并发起拉取请求",
                     "Learn more about pull requests": "了解更多关于拉取请求的信息",
 
                 "Something went wrong. Please fork the project, then try from your fork.": "出错了。请复刻该项目，然后从您的复刻处尝试。",
