@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/vscode": "^1.116.0",
     "@vscode/vsce": "3.9.2",
-    "typescript": "^5.5.0"
+    "typescript": "^7.0.2"
   },
   "contributes": {
     "commands": [
@@ -53,5 +53,9 @@
         "title": "GitHub 中文化: 检查注入状态"
       }
     ]
+  },
+  "allowScripts": {
+    "@vscode/vsce-sign@2.0.9": true,
+    "keytar@7.9.0": true
   }
 }
